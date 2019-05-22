@@ -1,0 +1,51 @@
+E	"1. _constituent__PG = True
+AND __package_name = EGE1, EWE1, EMGG
+2. _constituent__PG = True
+AND __package_name = ENS1"	"1.  and as a member of the Evergreen Council,
+2. As a member of the Evergreen Council, this is doubly true for you."	
+P1	"1. <_constituent_prospect_status> is not blank
+AND <_constituent_prospect__manager> in [ManagerID]
+2. Everything else"	"1. my colleague [ManagerName] at [ManagerNumber] or [ManagerEmail]
+2. our Membership Services team at (800) 584-6460 or info@earthjustice.org"	[ManagerID] [ManagerName] [ManagerNumber] [ManagerEmail]: see "Prospect Managers" tab
+P2	"1. <_constituent_prospect_status> is not blank
+AND <_constituent_prospect__manager> in [ManagerID]
+2. Everything else"	"1. reach out to my colleague [ManagerName] at [ManagerNumber] or [ManagerEmail] should you ever have suggestions or questions
+2. contact Rebecca Kirkpatrick at (800) 584-6460 or DouglasSociety@earthjustice.org to ask questions about our work, suggest teleconference topics, update your annual report listing, or clarify your communications preferences"	
+L	<_gift_date> more than 30 days since yesterday	Please accept my apologies for the delay of this letter.	
+S1	<__segment_name> = ACK: ENS1	being	
+A	"<_constituent__anonymous donor> = yes
+OR
+<_constituent__highlyanonymous> = yes
+OR
+<_gift__anonymous gift> = yes"	anonymous	
+R	<_gift_appeal_category> = Renewal	membership renewal	
+V	"1. <_gift___Fund name> is not blank
+2. <_gift___Fund name> is blank AND <_gift__recognition_type> = Donor Advised"	"1. through <_gift___Fund name>
+2. through <_gift_mirror_credit>"	
+T1	<_gift_tributes__type> is not blank	<_gift_tributes__type> <_gift_tributes__salutation>	
+T2	<_gift_tributes__type> is not blank	If you so requested, a beautiful card was sent to notify the recipient of this tribute.	
+M	"<_gift_appeal_active> = True
+<_gift_appeal_report code> = Sandler Match
+AND <_gift_date> between Oct 1 and Dec 31
+OR
+<_gift_appeal_report code> = Board Match 
+AND <_gift_date> between Apr 1 and June 30
+OR
+<_gift_appeal_report code> = Monthly Giving Match"	Thank you, too, for contributing to the matching gift challenge.	This field should only be activated if <_gift_appeal_active> = Yes
+Y	<_constituent__former board> = yes	We deeply appreciate your past service on our Board of Trustees.	
+G1	<_gift__sustainer> = <_gift_amount>	first monthly	
+G2	"1. <_gift__payment method> = Stock
+2. Everything else"	"1. <_gift__stock units sold> shares of <_gift__stock issuer>
+2. <_gift_amount>"	
+G3	_gift__sustainer ≠ _gift_amount	and your monthly gift of <_gift__sustainer>	
+I	<_gift__other method> = IRA Rollover gift	through a qualified charitable distribution from your IRA account	
+ST1	<_gift__payment method> = Stock	of <_gift__stock issuer> shares	
+ST2	<_gift__payment method> = Stock	On <_gift_date>, for each share, the high selling price was $<_gift__stock high price>, the average selling price was $<_gift__stock median price>, and the low selling price was $<_gift__stock low price>. Based on an average price, the fair market value of <_gift__stock units sold> shares of <_gift__stock issuer> on <_gift_date> would be <_gift_amount>. You may wish to confirm the amount of your gift with your attorney or tax advisor.	
+X	"1. <_gift__other method> = IRA Rollover gift
+2. <_gift__recognition_type> = Family Foundation
+3. <_gift__recognition_type> = Donor Advised, Third Party - Donor, Business, or Workplace – Employee
+4. <_gift__recognition_type> is blank"	"1. Our understanding is that you intend for your gift to be a qualified charitable distribution from your IRA under the PATH Act and section 408(d)(8) of the Internal Revenue Code. Your gift was not transferred to a donor advised fund, supporting organization, charitable remainder trust, or in exchange for a charitable gift annuity. This letter also confirms that you have received no goods or services. Our tax ID# is 94-1730465. Please keep this written acknowledgment of your donation for your tax records.
+2. This letter confirms that you have received no goods or services in consideration for this contribution. Please keep this written acknowledgment of your donation for your tax records.
+3. This letter is to express our appreciation for your support of Earthjustice. For your tax records, please coordinate with <_gift___Fund name>.
+4. This letter confirms that you have received no goods or services that would reduce the tax-deductible amount of your donation; our tax ID# is 94-1730465. Please keep this written acknowledgment of your donation for your tax records."	
+D	<_gift__designation__> is in [DesignationLookup]	[DesignationLanguage]	[DesignationLookup] and [DesignationLanguage]: See "Designation" tab
