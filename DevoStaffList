@@ -1,0 +1,1361 @@
+<div class="axero-widget axero-widget-tabbed {{CustomCSSClass}}{{#if HideContainerBorder}} axero-widget-no-border{{/if}}">
+
+    
+    <div class="axero-widget-header">
+        <h3>Staff List</h3>
+    </div>
+    
+    
+    <div class="axero-widget-content">
+            <ul id="myTab" class="nav nav-tabs">
+              <li class="active"><a href="#administration50" data-toggle="tab">Development Administration</a></li>
+              <li><a href="#donormarketing51" data-toggle="tab">Donor Marketing & Engagement</a></li>
+              <li><a href="#foundations53" data-toggle="tab">Foundation Relations</a></li>
+              <li><a href="#majorgifts52" data-toggle="tab">Major Gifts</a></li>
+              <li><a href="#devops54" data-toggle="tab">Operations, Research, and Evaluation</a></li>
+              <li><a href="#plannedgifts55" data-toggle="tab">Planned Gifts</a></li>
+              <li><a href="#oms51" data-toggle="tab">Outreach and Membership Services</a></li>
+            </ul>
+            
+            <div class="tab-content">
+              <div class="tab-pane fade in active list" id="administration50">                
+                
+                
+                        
+                            <table style="width:100%">
+                                <tr>
+                                    <td colspan="4" style="padding:4px 10px 4px 10px">
+                                        <div>
+                                        <h6>The Development Administration team handles all department-wide matters, and serves as the department connection to senior leadership.</h6>
+                                        </div>
+                                    </td>
+                                </tr><tr>
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/mfager
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/Assets/Uploaded-Photos/202/82361f0f-4750-4b98-be7c-6eb92ef95a9a.png
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/mfager
+                                            ">
+                                        Mollie Marsh-Heine
+                                            </a></div><div class="media-user">
+                                        Vice President of Development
+                                            </div><div class="media-date">
+                                        ext. 2614
+                                        <a href="mailto:mmarshheine@earthjustice.org
+                                            ">
+                                        mmarshheine@earthjustice.org   
+                                            </a></div></div></td>
+
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/lmarsh
+                                            "><img width="100%" src="
+                                        https://earthjustice.org/sites/default/files/styles/image_800x600/public/staff/Marsh_Libby0-800.jpg
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/lmarsh
+                                            ">
+                                        Libby Marsh
+                                            </a></div><div class="media-user">
+                                        Associate Vice President of Development
+                                            </div><div class="media-date">
+                                        ext. 2017
+                                            <a href="mailto:lmarsh@earthjustice.org
+                                            ">
+                                        lmarsh@earthjustice.org    
+                                            </a></div></div></td>
+
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/bdrucker
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/fileattachment?file=KQVGOqNP%2F6lf2s9PB3a%2BHg%3D%3D
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/bdrucker
+                                            ">
+                                        Bailey Drucker
+                                            </a></div><div class="media-user">
+                                        Executive Assistant
+                                            </div><div class="media-date">
+                                        ext. 2195
+                                            <a href="mailto:bdrucker@earthjustice.org
+                                            ">
+                                        bdrucker@earthjustice.org    
+                                            </a></div></div></td>
+                                    
+                                    <td width="24%" valign="top">
+                                    </td>
+                                    
+                                
+                                </tr></table>
+                    </div>
+    				
+             <div class="tab-pane fade in list" id="donormarketing51">                
+
+                            <table style="width:100%">
+                                <tr>
+                                    <td colspan="4" style="padding:4px 10px 4px 10px">
+                                        <div>
+                                        <h6>The Donor Marketing & Engagement team.</h6>
+                                        </div>
+                                    </td>
+                                </tr><tr>
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/kbatten
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/fileattachment?file=BidPt%2FsT81NkH34d%2BW55lA%3D%3D
+                                            "//></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/kbatten
+                                            ">
+                                        Kristen Batten
+                                            </a></div><div class="media-user">
+                                        Director of Donor Marketing & Engagement
+                                            </div><div class="media-date">
+                                        ext. 2196 
+                                            <a href="mailto:
+                                        kbatten@earthjustice.org
+                                            ">
+                                        kbatten@earthjustice.org    
+                                            </a></div></div></td>
+											
+									<td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/dbergez
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/Assets/Uploaded-Photos/98/65af05e9-224b-471b-8cd6-a1cd98937a0c.jpg
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/dbergez
+                                            ">
+                                        Denise Bergez
+                                            </a></div><div class="media-user">
+                                        Development Writer
+                                            </div><div class="media-date">
+                                        ext. 2121
+                                            <a href="mailto:
+                                        dbergez@earthjustice.org
+                                            ">
+                                        dbergez@earthjustice.org    
+                                            </a></div></div></td>
+
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/eclarke
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/fileattachment?file=aPq5WKBOHyeTUB91yTNc6g%3D%3D
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/eclarke
+                                            ">
+                                        Ella Clarke
+                                            </a></div><div class="media-user">
+                                        Events Associate
+                                            </div><p class="meta-small">                                         
+                                        Contact for donation questions, mailing list removals, and donor complaints.                                                
+                                            </p><div class="media-date">
+                                        ext. 2056 
+                                            <a href="mailto:
+                                        eclarke@earthjustice.org
+                                            ">
+                                        eclarke@earthjustice.org    
+                                            </a></div></div></td>
+
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/jdobbs
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/Assets/Uploaded-Photos/153/a8e651bf-b107-43fe-aad3-af47d9927eb9.jpg
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/jdobbs
+                                            ">
+                                        Jamie Dobbs
+                                            </a></div><div class="media-user">
+                                        Events and Travel Specialist
+                                            </div>
+											
+											<div class="media-date">
+                                        ext. 2030
+                                            <a href="mailto:
+                                        jdobbs@earthjustice.org
+                                            ">
+                                        jdobbs@earthjustice.org    
+                                            </a></div></div></td>
+                                            
+                                </tr><tr>
+											
+									<td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/eecklund
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/Assets/Uploaded-Photos/113/610e7a5f-7e17-43f1-ad6a-270bf804844c.jpg
+											"/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/eecklund
+                                            ">
+                                        Eileen Ecklund
+                                            </a></div><div class="media-user">
+                                        Senior Development Writer
+                                            </div>
+											<div class="media-date">
+                                        ext. 2033
+                                            <a href="mailto:
+                                        eecklund@earthjustice.org
+                                            ">
+                                        eecklund@earthjustice.org    
+                                            </a></div></div></td>
+                                
+									<td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/mhorst
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/Assets/Uploaded-Photos/486/a4b110a9-e6af-4da3-9f7b-972a31b2e9c1.jpg
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/mhorst
+                                            ">
+                                        Matt Horst
+                                            </a></div><div class="media-user">
+                                        Donor Marketing Associate
+                                            </div><div class="media-date">
+                                        ext. 2310
+                                            <a href="mailto:
+                                        mhorst@earthjustice.org
+                                            ">
+                                        mhorst@earthjustice.org    
+                                            </a></div></div></td>
+									
+									<td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/sroudane
+                                            "><img width="100%" src="
+                                        https://earthjustice.org/sites/default/files/styles/image_800x600/public/staff/Roudane_Sophia-800.jpg
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/sroudane
+                                            ">
+                                        Sophie Roudané
+                                            </a></div><div class="media-user">
+                                        Senior Events Manager
+                                            </div><div class="media-date">
+                                        ext. 2083
+                                            <a href="mailto:
+                                        sroudane@earthjustice.org
+                                            ">
+                                        sroudane@earthjustice.org    
+                                            </a></div></div></td>
+
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/nrowlands
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/Assets/Uploaded-Photos/634/b904e83e-83a2-40b8-9c43-99dd41fd7f66.png
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/nrowlands
+                                            ">
+                                        Nick Rowlands
+                                            </a></div><div class="media-user">
+                                        Associate Development Writer
+                                            </div><div class="media-date">
+                                        ext. 2148
+                                            <a href="mailto:
+                                        nrowlands@earthjustice.org
+                                            ">
+                                        nrowlands@earthjustice.org    
+                                            </a></div></div></td>
+                                
+                                </tr><tr>
+                                    
+									<td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/sshaw
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/fileattachment?file=tWHJY%2FC4Pix3ODTxmGejPA%3D%3D
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/sshaw
+                                            ">
+                                        Sam Shaw
+                                            </a></div><div class="media-user">
+                                        Stewardship Officer
+                                            </div>              
+                                            
+											<div class="media-date">
+                                        ext. 2059
+                                            <a href="mailto:
+                                        sshaw@earthjustice.org
+                                            ">
+                                        sshaw@earthjustice.org    
+                                            </a></div></div></td>
+                                    
+                            </tr>
+                            </table>
+                    </div>      
+
+               <div class="tab-pane fade in list" id="foundations53">                                
+                
+                        
+                            <table style="width:100%">
+                                <tr>
+									<td width="24%" valign="top">
+                                           <div class="thumbnail"><a class="photo" href="
+                                        /people/bpangilinan
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/fileattachment?file=6GzrzjMhuGTzeVfmlOso9A%3D%3D
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/bpangilinan
+                                            ">
+                                        Bryan Pangilinan
+                                            </a></div><div class="media-user">
+                                        Director of Foundation Relations
+                                            </div><div class="media-date">
+                                        ext. 2114
+                                            <a href="mailto:
+                                        bpangilinan@earthjustice.org
+                                            ">
+                                        bpangilinan@earthjustice.org    
+                                            </a></div></div></td>
+											
+									<td width="24%" valign="top">
+											<div class="thumbnail"><a class="photo" href="
+                                        /people/jkatzschner
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/fileattachment?file=JuZfblkn0kwuXzJ%2BQGkndQ%3D%3D
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/jkatzschner
+                                            ">
+                                        June Katzschner
+                                            </a></div><div class="media-user">
+                                        Deputy Director of Foundation Relations
+                                            </div><div class="media-date">
+                                        ext. 2088
+                                            <a href="mailto:
+                                        jkatzschner@earthjustice.org
+                                            ">
+                                        jkatzschner@earthjustice.org    
+                                            </a></div></div></td>
+                                    
+									<td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/matoria
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/fileattachment?file=HajOQ1dnbaRNRLtc2ujvXA%3D%3D
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/matoria
+                                            ">
+                                        Mike Atoria
+                                            </a></div><div class="media-user">
+                                        Development Officer
+                                            </div><div class="media-date">
+                                        ext. 2303
+                                            <a href="mailto:
+                                        matoria@earthjustice.org
+                                            ">
+                                        matoria@earthjustice.org    
+                                            </a></div></div></td>
+									
+									<td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/sbeck
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/Assets/Uploaded-Photos/248/088537fd-ced0-4bd3-9b3c-ccb151bdfb72.jpg
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/sbeck
+                                            ">
+                                        Susanna Beck
+                                            </a></div><div class="media-user">
+                                        Senior Development Officer
+                                            </div><div class="media-date">
+                                        ext. 2166
+                                            <a href="mailto:
+                                        sbeck@earthjustice.org
+                                            ">
+                                        sbeck@earthjustice.org    
+                                            </a></div></div></td>
+											
+						</tr><tr>	
+											
+									<td width="24%" valign="top">
+											<div class="thumbnail"><a class="photo" href="
+                                        /people/calopez
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/Assets/Uploaded-CMS-Files/7c1f7530-59cb-4e3d-8ed4-746cf31e86c5.jpg
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/calopez
+                                            ">
+                                        Carissa López
+                                            </a></div><div class="media-user">
+                                        Development Officer
+                                            </div><div class="media-date">
+                                        ext. 2304
+                                            <a href="mailto:
+                                        calopez@earthjustice.org
+                                            ">
+                                        calopez@earthjustice.org    
+                                            </a></div></div></td>
+
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/jmantell
+                                            "><img width="100%" src="
+										https://atlas.earthjustice.org/Assets/Uploaded-Photos/164/4e40c85a-5bc4-49c7-a308-906d1f58ad1b.jpg
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/jmantell
+                                            ">
+                                        Janice Mantell
+                                            </a></div><div class="media-user">
+                                        Development Officer
+                                            </div><div class="media-date">
+                                        ext. 2087
+                                            <a href="mailto:
+                                        jmantell@earthjustice.org
+                                            ">
+                                        jmantell@earthjustice.org    
+                                            </a></div></div></td>
+											
+                                    <td width="24%" valign="top">
+                                           <div class="thumbnail"><a class="photo" href="
+                                        /people/dnunez
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/Assets/Uploaded-Photos/105/3e35ee54-ef69-41fc-924f-d49e8cd8a541.jpg
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/dnunez
+                                            ">
+                                        David Nunez
+                                            </a></div><div class="media-user">
+                                        Development Officer
+                                            </div><div class="media-date">
+                                        ext. 2088
+                                            <a href="mailto:
+                                        dnunez@earthjustice.org
+                                            ">
+                                        dnunez@earthjustice.org    
+                                            </a></div></div></td>
+                                    
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                            /people/kroach
+                                                "><img width="100%" src="
+                                            https://atlas.earthjustice.org/Assets/Uploaded-Photos/649/78c022a3-8618-436e-bf05-b63eb7fc9186.png
+                                                "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                            /people/kroach
+                                                ">
+                                            Karilyn Roach
+                                                </a></div><div class="media-user">
+                                            Development Writer
+                                                </div><div class="media-date">
+                                            ext. 2000
+                                                <a href="mailto:
+                                            kroach@earthjustice.org
+                                                ">
+                                            kroach@earthjustice.org    
+                                                </a></div></div></td>     
+                                                
+                                </tr><tr>
+
+
+									<td width="24%" valign="top">
+                                           <div class="thumbnail"><a class="photo" href="
+                                        /people/nseabright
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/fileattachment?file=AClAU77zZ1wPmB0kjtKs7w%3D%3D
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/nseabright
+                                            ">
+                                        Nick Seabright
+                                            </a></div><div class="media-user">
+                                        Foundations Associate
+                                            </div><div class="media-date">
+                                        ext. 2128
+                                            <a href="mailto:
+                                        nseabright@earthjustice.org
+                                            ">
+                                        nseabright@earthjustice.org    
+                                            </a></div></div></td>
+                                            
+                                </tr></table>
+                    </div>
+                
+               <div class="tab-pane fade in list" id="majorgifts52">                
+             
+                        
+                            <table style="width:100%">
+                               <tr>
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/lmillerfurst
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/Assets/Uploaded-Photos/405/1334/33116eea-a56b-4176-92eb-529718f10bf1.png
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/lmillerfurst
+                                            ">
+                                        Lina Miller Furst
+                                            </a></div><div class="media-user">
+                                        Director of Major Gifts<br>          
+                                        Office: Seattle
+                                            </div><div class="media-date">
+                                        ext. 1042
+                                            <a href="mailto:
+										lmillerfurst@earthjustice.org
+                                            ">&nbsp;&nbsp;<i class="icon-envelope-alt">&nbsp;&nbsp;email</i></a></div></div></td>
+
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/marai
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/fileattachment?file=4miJqe1lxHbOsDBeuyQf7A%3D%3D
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/marai
+                                            ">
+                                        Maryam Arai
+                                            </a></div><div class="media-user">
+                                        Senior Major Gifts Officer<br>                                       
+                                        Region: Midwest<br>
+                                        Office: Midwest
+                                            </div><div class="media-date">
+                                            </div><div class="media-date">
+                                        (415) 283-2395
+                                            <a href="mailto:
+                                        marai@earthjustice.org
+                                            ">&nbsp;&nbsp;<i class="icon-envelope-alt">&nbsp;&nbsp;email</i></a></div></div></td>
+
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/dbellucci
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/fileattachment?file=vMpMlAmIy5x8bnM74FVd5w%3D%3D
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/dbellucci
+                                            ">
+                                        Darlene Bellucci
+                                            </a></div><div class="media-user">
+                                        Senior Major Gifts Officer<br>                                      
+                                        Region: Northern CA<br>
+                                        Office: San Francisco
+                                            </div><div class="media-date">
+                                        ext. 2165
+                                            <a href="mailto:
+										dbellucci@earthjustice.org
+                                            ">&nbsp;&nbsp;<i class="icon-envelope-alt">&nbsp;&nbsp;email</i></a></div></div></td>
+											
+									<td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/mbozeman
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/fileattachment?file=pCvyno9uOOu3Zn3SpphfBQ%3D%3D
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/mbozeman
+                                            ">
+                                        Marci Bozeman
+                                            </a></div><div class="media-user">
+                                        Major Gifts Officer<br>                                      
+                                        Region: Rocky Mountains<br>
+                                        Office: Northern Rockies
+                                            </div><div class="media-date">
+                                        ext. 2000
+                                            <a href="mailto:
+										mbozeman@earthjustice.org
+                                            ">&nbsp;&nbsp;<i class="icon-envelope-alt">&nbsp;&nbsp;email</i></a></div></div></td>
+
+                                </tr><tr>
+                                
+                                    <td width="24%" valign="top">
+                                        <div class="thumbnail"><a class="photo" href="
+                                        /people/lburtchell
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/fileattachment?file=yd%2Fl8JMmV7%2FXlp8pIY5D%2Bw%3D%3D
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/lburtchell
+                                            ">
+                                        Lindsay Burtchell
+                                            </a></div><div class="media-user">
+                                        Associate Director<br>
+                                        Region: Northeast<br>
+                                        Office: New York
+                                            </div><div class="media-date">
+                                        ext. 4976
+                                            <a href="mailto:
+                                        lburtchell@earthjustice.org
+                                            ">&nbsp;&nbsp;<i class="icon-envelope-alt">&nbsp;&nbsp;email</i></a></div></div></td>
+
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/kcecil
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/fileattachment?file=HQvIoQFucGTU7Mr7Y%2FjOAA%3D%3D
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/kcecil
+                                            ">
+                                        Katie Cecil
+                                            </a></div><div class="media-user">
+                                        Deputy Director II, Major Gifts<br>
+                                        Region: Northeast<br>
+                                        Office: New York
+                                            </div><div class="media-date">
+                                        ext. 4979
+                                            <a href="mailto:
+                                        kcecil@earthjustice.org
+                                            ">&nbsp;&nbsp;<i class="icon-envelope-alt">&nbsp;&nbsp;email</i></a></div></div></td>
+
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/lgreenberg
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/Assets/Uploaded-Photos/571/ad10d4a4-3853-42b9-9920-c5ab201c6039.jpg
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/lgreenberg
+                                            ">
+                                        Lauren Greenberg
+                                            </a></div><div class="media-user">
+                                        Major Gifts Associate<br>                                     
+                                        Office: San Francisco
+                                            </div><div class="media-date">
+                                        (415) 283-2300
+                                            <a href="mailto:
+                                        lgreenberg@earthjustice.org
+                                            ">&nbsp;&nbsp;<i class="icon-envelope-alt">&nbsp;&nbsp;email</i></a></div></div></td>
+                                   
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/ejacke
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/fileattachment?file=JJlU6kOuEXpKhKEemY1W8g%3D%3D
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/ejacke
+                                            ">
+                                        Emily Jacke
+                                            </a></div><div class="media-user">
+                                        Major Gifts Team Development Associate<br>                                     
+                                        Office: San Francisco
+                                            </div><div class="media-date">
+                                        ext. 2192
+                                            <a href="mailto:
+										ejacke@earthjustice.org
+                                            ">&nbsp;&nbsp;<i class="icon-envelope-alt">&nbsp;&nbsp;email</i></a></div></div></td>
+                                                                            
+                            </tr><tr>
+
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/momick
+                                            "><img width="100%" src="
+										https://atlas.earthjustice.org/Assets/Uploaded-Photos/212/e44c695c-a274-42c4-b6e2-c01afba71b81.jpeg
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/momick
+                                            ">
+                                        Max Omick
+                                            </a></div><div class="media-user">
+                                        Major Gifts Database Assistant<br>                                   
+                                        Office: San Francisco
+                                            </div><div class="media-date">
+                                        ext. 2037
+                                            <a href="mailto:
+										momick@earthjustice.org
+                                            ">&nbsp;&nbsp;<i class="icon-envelope-alt">&nbsp;&nbsp;email</i></a></div></div></td>
+                            
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/dpetricciani
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/Assets/Uploaded-Photos/588/577bce52-737c-47c8-84a2-045a53483664.png
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/dpetricciani
+                                            ">
+                                        Dawn Petricciani
+                                            </a></div><div class="media-user">
+                                        Major Gifts Officer<br>
+                                        Region: Northwest<br>                                  
+                                        Office: Seattle
+                                            </div><div class="media-date">
+                                        (206) 343 - 7340 ext. 1042
+                                            <a href="mailto:
+                                        dpetricciani@earthjustice.org
+                                            ">&nbsp;&nbsp;<i class="icon-envelope-alt">&nbsp;&nbsp;email</i></a></div></div></td>
+
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/cpolk
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/fileattachment?file=lO8Jnxf2yAhLDcq6H5kwdQ%3D%3D
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/cpolk
+                                            ">
+                                        Camille Polk
+                                            </a></div><div class="media-user">
+                                        Major Gifts Officer<br>
+                                        Region: Southeast<br>                                  
+                                        Office: San Francisco
+                                            </div><div class="media-date">
+                                        (305) 440-5438
+                                            <a href="mailto:
+                                        cpolk@earthjustice.org
+                                            ">&nbsp;&nbsp;<i class="icon-envelope-alt">&nbsp;&nbsp;email</i></a></div></div></td>
+
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/aridley
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/fileattachment?file=z6KB9ITB%2BNmmJmEAETw6tA%3D%3D
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/aridley
+                                            ">
+                                        Alyssa Ridley
+                                            </a></div><div class="media-user">
+                                        Individual Gifts Officer<br>                                       
+                                        Region: Northeast<br>
+                                        Office: New York
+                                            </div><div class="media-date">
+                                        ext. 4980
+                                            <a href="mailto:
+                                        aridley@earthjustice.org
+                                            ">&nbsp;&nbsp;<i class="icon-envelope-alt">&nbsp;&nbsp;email</i></a></div></div></td>
+                            </tr><tr>
+
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/dsandstedt
+                                            "><img width="100%" src="
+                                        https://earthjustice.org/sites/default/files/styles/image_800x600/public/staff/Sandstedt_Danielle-800.jpg
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/dsandstedt
+                                            ">
+                                        Danielle Sandstedt
+                                            </a></div><div class="media-user">
+                                        Principal Gifts Officer<br>                              
+                                        Region: Rocky Mountains &amp; Central<br>
+                                        Office: Denver
+                                            </div><div class="media-date">
+                                        ext. 2627
+                                            <a href="mailto:
+                                        dsandstedt@earthjustice.org
+                                            ">&nbsp;&nbsp;<i class="icon-envelope-alt">&nbsp;&nbsp;email</i></a></div></div></td>
+
+                                   <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/asterling
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/Assets/Uploaded-Photos/464/9cc13374-bce4-4461-99c5-976d345fb680.jpg
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/asterling
+                                            ">
+                                        Aislinn Sterling
+                                            </a></div><div class="media-user">
+                                        Major Gifts Data Assistant<br>                                     
+                                        Office: San Francisco
+                                            </div><div class="media-date">
+                                        ext. 2168
+                                            <a href="mailto:
+										asterling@earthjustice.org
+                                            ">&nbsp;&nbsp;<i class="icon-envelope-alt">&nbsp;&nbsp;email</i></a></div></div></td>
+
+
+									<td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/awilliams
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/fileattachment?file=yBW3doRhOHluIZQ8VodQkw%3D%3D
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/awilliams
+                                            ">
+                                        Ali Williams
+                                            </a></div><div class="media-user">
+                                        Major Gifts Operations Program Manager<br>                                     
+                                        Office: San Francisco
+                                            </div><div class="media-date">
+                                        ext. 2073
+                                            <a href="mailto:
+										awilliams@earthjustice.org
+                                            ">&nbsp;&nbsp;<i class="icon-envelope-alt">&nbsp;&nbsp;email</i></a></div></div></td>
+
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/nwolf
+                                            "><img width="100%" src="
+                                        https://earthjustice.org/sites/default/files/styles/image_800x600/public/staff/Wolf_Nick-800.jpg
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/nwolf
+                                            ">
+                                        Nick Wolf
+                                            </a></div><div class="media-user">
+                                        Major Gifts Officer<br>                               
+                                        Region: Rocky Mountains and Southwest<br>
+                                        Office: San Francisco
+                                            </div><div class="media-date">
+                                        ext. 2178
+                                            <a href="mailto:
+										nwolf@earthjustice.org
+                                            ">&nbsp;&nbsp;<i class="icon-envelope-alt">&nbsp;&nbsp;email</i></a></div></div></td>
+
+                                </tr><tr>
+
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/myelton
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/Assets/Uploaded-Photos/604/52dbe006-bf07-44bd-8578-ce82774fa4ef.png
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/myelton
+                                            ">
+                                        Marcus Yelton
+                                            </a></div><div class="media-user">
+                                        Deputy Director of Major Gifts<br>                               
+                                        Region: West Coast<br>
+                                        Office: San Francisco
+                                            </div><div class="media-date">
+                                        ext. 2191
+                                            <a href="mailto:
+                                        myelton@earthjustice.org
+                                            ">&nbsp;&nbsp;<i class="icon-envelope-alt">&nbsp;&nbsp;email</i></a></div></div></td>
+                            
+                            </tr></table>
+                </div>  
+              
+               
+                <div class="tab-pane fade in" id="devops54">
+                    
+                        
+                            <table style="width:100%">
+                                <tr>
+                                    <td colspan="4" style="padding:4px 10px 4px 10px">
+										<div>
+                                        <h6>The Development Operations, Research &amp; Evaluation team is responsible for the majority of back-office support to our fundraising teams.</h6>
+                                        </div>
+                                    </td>
+                                </tr><tr>
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/gimmel
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/Assets/Uploaded-Photos/131/5a9e84d5-5eec-4c3d-8b3c-c3828a8a45f3.jpg
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/gimmel
+                                            ">
+                                        Gregory Immel
+                                            </a></div><div class="media-user">
+                                        Senior Director of Development Operations, Research and Evaluation
+                                            </div><div class="media-date">
+                                        ext. 2004    
+                                            <a href="mailto:
+                                        gimmel@earthjustice.org
+                                            ">
+                                        gimmel@earthjustice.org    
+                                            </a></div></div></td>
+
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/vbregman
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/fileattachment?file=skRj3LB%2B8MOvdgxygiLWTw%3D%3D
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/vbregman
+                                            ">
+                                        Vincent Bregman
+                                            </a></div><div class="media-user">
+                                        Data Services Assistant
+                                           </div><p class="meta-small">
+                                        Contact for questions about online gifts, direct mail gifts, and general donation questions.  
+                                            </p><div class="media-date">
+                                        ext. 2000    
+                                            <a href="mailto:
+                                        vbregman@earthjustice.org
+                                            ">
+                                        vbregman@earthjustice.org    
+                                            </a></div></div></td>
+                                     
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/lcarroll
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/fileattachment?file=0WF%2BCkHcuXvkWolke6L5Jg%3D%3D&v=2
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/lcarroll
+                                            ">
+                                        Lauren Carroll
+                                            </a></div><div class="media-user">
+                                        Development Research Analyst
+                                            </div><p class="meta-small">
+                                        Contact for reports/qualitative data, RelSci/relationship research, research role in prospect management, and general research.
+                                            </p><div class="media-date">
+                                        ext. 2027    
+                                            <a href="mailto:
+                                        lcarroll@earthjustice.org
+                                            ">
+                                        lcarroll@earthjustice.org    
+                                            </a></div></div></td>
+											
+									<td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/fgomez-spencer
+                                            "><img width="100%" src="
+                                        https://earthjustice.org/sites/default/files/styles/image_800x600/public/staff/Gomez_Spencer_Felice-800.jpg
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/fgomez-spencer
+                                            ">
+                                        Felice Gomez-Spencer
+                                            </a></div><div class="media-user">
+                                        Deputy Director of Development Research
+                                            </div><p class="meta-small">
+                                        Complicated assets, wealth ratings, development-related subscriptions, proactive research (Hot List), foundation research, research systems, and general research.  
+                                            </p><div class="media-date">
+                                        ext. 2075
+                                            <a href="mailto:
+                                        fgomez-spencer@earthjustice.org
+                                            ">
+                                        fgomez-spencer@earthjustice.org    
+                                            </a></div></div></td>
+
+                                </tr><tr>
+                                    
+
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/lhufnagel
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/Assets/Uploaded-Photos/193/362994b8-43f2-4927-b058-d1d996b7f8f9.jpg
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/lhufnagel
+                                            ">
+                                        Lorrie Hufnagel
+                                            </a></div><div class="media-user">
+                                        Data Services Associate
+                                            </div><p class="meta-small">                                         
+                                        Contact for questions about low dollar checks, sustaining gifts, and general donation questions.                                                
+                                            </p><div class="media-date">
+                                        ext. 2039
+                                            <a href="mailto:
+                                        lhufnagel@earthjustice.org
+                                            ">
+                                        lhufnagel@earthjustice.org    
+                                            </a></div></div></td>
+
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/njimenez
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/attachment?file=YU%2BYO2UtHflq4TvwlsbusQ%3D%3D
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/njimenez
+                                            ">
+                                        Nallaly Jimenez
+                                            </a></div><div class="media-user">
+                                        Development Research Analyst
+                                            </div><p class="meta-small">                                         
+                                                                                    
+                                            </p><div class="media-date">
+                                        ext. 2132
+                                            <a href="mailto:
+                                        njimenez@earthjustice.org
+                                            ">
+                                        njimenez@earthjustice.org    
+                                            </a></div></div></td>        
+
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/jdec
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/fileattachment?file=CESp4ru0DPKyfSSK%2F31MKw%3D%3D&v=1
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/jdec
+                                            ">
+                                        Jacqui Kennedy
+                                            </a></div><div class="media-user">
+                                        Deputy Director of Development Operations
+                                            </div><p class="meta-small">
+                                        Contact for technology projects, database support and training.  
+                                            </p><div class="media-date">
+                                        ext. 2144    
+                                            <a href="mailto:
+                                        jkennedy@earthjustice.org
+                                            ">
+                                        jkennedy@earthjustice.org    
+                                            </a></div></div></td>
+
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/timothyng
+                                            "><img width="100%" src="
+                                        https://earthjustice.org/sites/default/files/styles/image_800x600/public/staff/Ng_Tim-800.jpg
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/timothyng
+                                            ">
+                                        Tim Ng
+                                            </a></div><div class="media-user">
+                                        Development Database Associate
+                                            </div><p class="meta-small">                                         
+                                        Contact for Atlas support, data importing and constituent updating.
+                                            </p><div class="media-date">
+                                        ext. 2034
+                                            <a href="mailto:
+                                        tng@earthjustice.org
+                                            ">
+                                        tng@earthjustice.org    
+                                            </a></div></div></td>
+								</tr><tr>
+                                    
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/aroque
+                                            "><img width="100%" src="
+                                        https://earthjustice.org/sites/default/files/styles/image_800x600/public/staff/Roque_Amanda-800.jpg
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/aroque
+                                            ">
+                                        Amanda Roqué
+                                            </a></div><div class="media-user">
+                                        Development Research Analyst
+                                            </div><p class="meta-small">                                         
+                                        Profile research and queue entry for strategy meetings.
+                                            </p><div class="media-date">
+                                        ext. 2121
+                                            <a href="mailto:
+                                        aroque@earthjustice.org
+                                            ">
+                                        aroque@earthjustice.org    
+                                            </a></div></div></td>
+
+									<td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/mstoffregen
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/fileattachment?file=1hvdFuPuvVS%2BeioSIMqOMg%3D%3D
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/mstoffregen
+                                            ">
+                                        Max Stoffregen
+                                            </a></div><div class="media-user">
+                                        Development Data Analyst
+                                            </div><p class="meta-small">
+                                        Contact for direct marketing data support and special mailing efforts.                                     
+                                            </p><div class="media-date">
+                                        ext. 2304
+                                            <a href="mailto:
+                                        mstoffregen@earthjustice.org
+                                            ">
+                                        mstoffregen@earthjustice.org    
+                                            </a></div></div></td>
+											
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/auhl
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/fileattachment?file=mGJo4HJZdxo1wtpxrAp6Uw%3D%3D
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/auhl
+                                            ">
+                                        Andrew Uhl
+                                            </a></div><div class="media-user">
+                                        Data Services Manager
+                                            </div><p class="meta-small">
+                                        Contact for questions about donation processing, pledges, coding of gifts, and data services policies and procedures.                                               
+                                            </p><div class="media-date">
+                                        ext. 2137
+                                            <a href="mailto:
+                                        auhl@earthjustice.org
+                                            ">
+                                        auhl@earthjustice.org    
+                                            </a></div></div></td>
+
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/kyang
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/fileattachment?file=31gWFPyoGyQNXuoy0SspqA%3D%3D
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/kyang
+                                            ">
+                                        Kitty Yang
+                                            </a></div><div class="media-user">
+                                        Data Services Senior Associate
+                                            </div><p class="meta-small">                                         
+                                        Contact for questions about high dollar gifts, workplace gifts, and third-party gifts.                                               
+                                            </p><div class="media-date">
+                                        ext. 2002
+                                            <a href="mailto:
+                                        kyang@earthjustice.org
+                                            ">
+                                        kyang@earthjustice.org    
+                                            </a></div></div></td>
+                                        </tr><tr>     
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/christinayu
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/fileattachment?file=ptL7AsabFI5szaYSIm9NmA%3D%3D
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/christinayu
+                                            ">
+                                        Christina Yu
+                                            </a></div><div class="media-user">
+                                        Development Evaluation Analyst
+                                            </div><p class="meta-small">                                         
+                                        Reporting and analysis of donor data: revenue performance, demographic trends, donor engagements, and forecasting.
+                                            </p><div class="media-date">
+                                        ext. 2119
+                                            <a href="mailto:
+                                        cyu@earthjustice.org
+                                            ">
+                                        cyu@earthjustice.org    
+                                            </a></div></div></td>
+                                    </tr>
+                            
+                            </table>
+                    </div>
+
+                <div class="tab-pane fade in list" id="plannedgifts55">                
+                
+                
+                        
+                            <table style="width:100%">
+                                <tr>
+                                    <td colspan="4" style="padding:4px 10px 4px 10px">
+                                        <div>
+                                        <h6>The Planned Gifts team assists individuals who wish to include Earthjustice in their estate plans and we facilitate the donation of hard to sell assets. With the donor’s goals in mind, we share information and offer opportunities to use non-cash assets to support Earthjustice.</h6>
+                                        </div>
+                                    </td>
+                                </tr><tr>
+                                     <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/ehill
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/fileattachment?file=GQEgEnQJUgmQ1G4dv0oSRw%3D%3D
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/ehill
+                                            ">
+                                        Elizabeth Hill
+                                            </a></div><div class="media-user">
+                                        Director of Planned Gifts
+                                            </div><div class="media-date">
+                                        ext. 2305
+                                            <a href="mailto:
+                                        ehill@earthjustice.org
+                                            ">
+                                        ehill@earthjustice.org    
+                                            </a></div></div></td>
+                                    
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/jcalaway
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/Assets/Uploaded-Photos/603/bbe1d023-b5e9-41b7-b1ad-14f43a1459ad.png
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/jcalaway
+                                            ">
+                                        John Calaway
+                                            </a></div><div class="media-user">
+                                        Deputy Director of Planned Gifts
+                                            </div><div class="media-date">
+                                        ext. 2161
+                                            <a href="mailto:
+                                        jcalaway@earthjustice.org
+                                            ">
+                                        jcalaway@earthjustice.org    
+                                            </a></div></div></td>
+                                            
+
+									<td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/jcarlevaro
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/Assets/Uploaded-Photos/148/6316801a-be36-45f4-bb2a-fb0721ca1b96.png
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/jcarlevaro
+                                            ">
+                                        Julie Carlevaro
+                                            </a></div><div class="media-user">
+                                        Estates and Planned Gifts Officer
+                                            </div><div class="media-date">
+                                        ext. 2157    
+                                            <a href="mailto:
+                                        jcarlevaro@earthjustice.org
+                                            ">
+                                        jcarlevaro@earthjustice.org    
+                                            </a></div></div></td>
+
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/aoduol
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/Assets/Uploaded-Photos/602/12c96b7a-8c62-477b-9980-69c27b9541d5.png
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/aoduol
+                                            ">
+                                        Abigail Oduol
+                                            </a></div><div class="media-user">
+                                        Individual Gifts Officer
+                                            </div><div class="media-date">
+                                        ext. 2157    
+                                            <a href="mailto:
+                                        aoduol@earthjustice.org
+                                            ">
+                                        aoduol@earthjustice.org    
+                                            </a></div></div></td>
+
+                                </tr><tr>
+
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/grosenstein
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/Assets/Uploaded-Photos/573/de5fdcd4-f88e-400c-8a92-5701db0ebfe4.jpg
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/grosenstein
+                                            ">
+                                        Gabriel Rosenstein
+                                            </a></div><div class="media-user">
+                                        Planned Giving Systems Associate
+                                            </div><div class="media-date">
+                                        ext. 2014
+                                            <a href="mailto:
+                                        rosenstein@earthjustice.org
+                                            ">
+                                        rosenstein@earthjustice.org    
+                                            </a></div></div></td>
+
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/rsteele
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/attachment?file=8gTxRTplQedUmOdDMOjJBg%3D%3D
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/rsteele
+                                            ">
+                                        Robin Steele
+                                            </a></div><div class="media-user">
+                                        Individual Gifts Officer
+                                            </div><div class="media-date">
+                                        ext. 2007
+                                            <a href="mailto:
+                                        rsteele@earthjustice.org
+                                            ">
+                                        rsteele@earthjustice.org    
+                                            </a></div></div></td>
+
+                                    <td width="24%" valign="top">
+                                            </td>
+
+                            </tr></table>
+                    </div>
+					
+					<div class="tab-pane fade in list" id="oms51">                
+                
+                
+                        
+                            <table style="width:100%">
+                                <tr>
+                                    <td colspan="4" style="padding:4px 10px 4px 10px">
+                                        <div>
+                                        <h6>The Outreach and Membership Services team.</h6>
+                                        </div>
+                                    </td>
+                                </tr><tr>
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/lbolton
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/fileattachment?file=zK0TLE%2BMG4OLc9Ows%2BM1aw%3D%3D
+                                            "//></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/lbolton
+                                            ">
+                                        Lynn Bolton
+                                            </a></div><div class="media-user">
+                                        Director of Outreach and Membership Services
+                                            </div><p class="meta-small">                                         
+                                        Contact for annual report or other stewardship publications, donation questions, mailing list removals, and donor complaints.                                                
+                                            </p><div class="media-date">
+                                        ext. 2182
+                                            <a href="mailto:
+                                        lbolton@earthjustice.org
+                                            ">
+                                        lbolton@earthjustice.org    
+                                            </a></div></div></td>
+                                    
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/jallen
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/fileattachment?file=Inmw0VMq%2FURPlLG5ml9bGA%3D%3D
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/jallen
+                                            ">
+                                        Jennifer Allen
+                                            </a></div><div class="media-user">
+                                        Outreach & Membership Services Senior Associate
+                                            </div><p class="meta-small">                                         
+                                        Contact for donation questions, mailing list removals, and donor complaints.                                                
+                                            </p><div class="media-date">
+                                        ext. 2052
+                                            <a href="mailto:
+                                        jallen@earthjustice.org
+                                            ">
+                                        jallen@earthjustice.org    
+                                            </a></div></div></td>
+
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/schamplin
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/Assets/Uploaded-Photos/536/86839714-165b-4e85-b65e-5bc28ff3274f.jpg
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/schamplin
+                                            ">
+                                        Susannah Champlin
+                                            </a></div><div class="media-user">
+                                        Membership Services Assistant
+                                            </div><p class="meta-small">                                         
+                                                                                       
+                                            </p><div class="media-date">
+                                        (415) 283-1215
+                                            <a href="mailto:
+                                        schamplin@earthjustice.org
+                                            ">
+                                        schamplin@earthjustice.org    
+                                            </a></div></div></td>
+
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/rkirkpatrick
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/fileattachment?file=o2J%2BYTo%2FEJ2W9jDW9dzu6w%3D%3D&v=1
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/rkirkpatrick
+                                            ">
+                                        Rebecca Kirkpatrick
+                                            </a></div><div class="media-user">
+                                        Mid-Level Giving Officer
+                                            </div><p class="meta-small">                                         
+                                        Contact for information about our mid-level giving program and mid-level donor/donation questions.                                    
+                                            </p><div class="media-date">
+                                        ext. 2098
+                                            <a href="mailto:
+                                        rkirkpatrick@earthjustice.org
+                                            ">
+                                        rkirkpatrick@earthjustice.org    
+                                            </a></div></div></td>
+								</tr><tr>		
+                                    <td width="24%" valign="top">
+                                            <div class="thumbnail"><a class="photo" href="
+                                        /people/mmullaney
+                                            "><img width="100%" src="
+                                        https://atlas.earthjustice.org/Assets/Uploaded-Photos/10/1366/60336880-080b-49c0-b176-17a2b2e07e8b.JPG
+                                            "/></a></div><div class="axero-media-grid-item-meta"><div class="media-name"><a href="
+                                        /people/mmullaney
+                                            ">
+                                        Mary Ellen Mullaney
+                                            </a></div><div class="media-user">
+                                        Direct Response Manager
+                                            </div><p class="meta-small">                                         
+                                        Contact for mail or telemarketing program.                                               
+                                            </p><div class="media-date">
+                                        ext. 2134
+                                            <a href="mailto:
+                                        mmullaney@earthjustice.org
+                                            ">
+                                        mmullaney@earthjustice.org    
+                                            </a></div></div></td>
+
+                            
+                            </tr>
+                            </table>
+                    </div>  
+                
+              </div>              
+
+         </div>      
+              
+            
+    </div>
