@@ -41,6 +41,7 @@ case when [Anonymous].ID is null then ''
 ,[RecognitionProgram].ID as [Recognition Program Record ID]
 ,C.ID as [Constituent Record ID]
 ,N.[ID] as [Name Format Record ID]
+,C.ID as [FY2019 Giving - Recognition Credits Countable Revenue No PG Smart Field\Currency ID]
 ,C.ID as [QUERYRECID]
 from V_QUERY_CONSTITUENT as C
 inner join 
