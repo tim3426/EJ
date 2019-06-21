@@ -37,14 +37,20 @@ case when [Anonymous].ID is null then ''
 ,case when [RecognitionProgram].STATUS = 'Active' then 'Reviewed'
     else 'Pending'
     end as [Status]
-,[FY19Giving].[VALUE] as [Countable giving]
+,[Countable giving]
 ,[RecognitionProgram].ID as [Recognition Program Record ID]
 ,C.ID as [Constituent Record ID]
 ,N.[ID] as [Name Format Record ID]
-,[FY19Giving].[CURRENCYID] as [FY2019 Giving - Recognition Credits Countable Revenue No PG Smart Field\Currency ID]
 ,C.ID as [QUERYRECID]
 from V_QUERY_CONSTITUENT as C
-inner join EJ_REVENUE_RECOGNITION as R on R.CONSTITUENTID = C.ID and R.EFFECTIVEDATE >= '2018-07-01'
+inner join 
+	(select sum(EJ_REVENUE_RECOGNITION.AMOUNT) as [Countable giving]
+	,EJ_REVENUE_RECOGNITION.CONSTITUENTID
+	from EJ_REVENUE_RECOGNITION
+	where EFFECTIVEDATE >= '2018-07-01'
+		and CATEGORY <> 'Planned Giving'
+	group by EJ_REVENUE_RECOGNITION.CONSTITUENTID
+	) as R on R.CONSTITUENTID = C.ID
 inner join [dbo].[V_QUERY_RECOGNITION_816AA4D32F8F4F77BE995E6B27B5FD19] as [RecognitionProgram] on R.CONSTITUENTID = [RecognitionProgram].[CONSTITUENTID]
 left outer join [dbo].[V_QUERY_CONSTITUENTNAMEFORMAT] as [N] on C.ID = [N].[CONSTITUENTID]
 	AND [N].NAMEFORMATTYPECODEID_TRANSLATION = 'Annual Report Listing'
@@ -52,7 +58,6 @@ left outer join [dbo].[V_QUERY_PROSPECT] as P on C.ID = P.[ID]
 left outer join [dbo].[V_QUERY_FUNDRAISER] as PM on P.[PROSPECTMANAGERFUNDRAISERID] = [PM].[ID]
 left outer join [dbo].[V_QUERY_ADDRESSEE_SALUTATION] as [AddSal] on C.ID = [AddSal].[ID]
 left outer join [dbo].[V_QUERY_CONSTITUENT] as SpouseC on SpouseC.ID = C.SPOUSE_ID
-left outer join dbo.[V_QUERY_SMARTFIELD9D67F8AEC6974BA292DF48FBFAA09631] as [FY19Giving] on C.ID = [FY19Giving].ID
 left join dbo.[UFN_ADHOCQUERYIDSET_C1B59FBE_5DE6_45CA_B2F0_1878701BC290]() as [Amicus] on C.ID = [Amicus].ID
 left join dbo.[UFN_ADHOCQUERYIDSET_2D70B98E_F40D_408E_A7B8_D15A2E5C6548]() as [PG] on C.ID = [PG].ID
 left join dbo.[UFN_ADHOCQUERYIDSET_5568D293_8A31_4905_9D3C_8DB227E20B9C]() as [Anonymous] on C.ID = [Anonymous].ID
