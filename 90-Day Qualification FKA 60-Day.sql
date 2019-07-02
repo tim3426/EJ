@@ -1,0 +1,149 @@
+use EJDEVO;
+
+SET QUOTED_IDENTIFIER ON
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+DELETE FROM EJ_PROSPECT_60_DAY_QUALIFICATION;
+
+INSERT INTO EJ_PROSPECT_60_DAY_QUALIFICATION (CONSTITUENTID, LOOKUPID, Name, ManagerStartDate,ProspectStatus,YTDFiscal,PriorFiscal, ProspectManager, Constituency, PastInteractions, Section)
+
+SELECT CONSTITUENTID, [LookupID], [Name],[ManagerStartDate],[ProspectStatus],[YTDFiscal],[PriorFiscal],ProspectManager,[Constituency],[PastInteractions],[Section]
+FROM 
+(
+select  distinct 	
+	case when [PAST_INTERACTIONS].NEXTMOVES is null then 0
+	else 1
+	end [Section],
+	[C].[NAME] as [Name],
+	[C].[LOOKUPID] as [LookupID],
+	[PM].[NAME] as [ProspectManager],
+	P.PROSPECTMANAGERSTARTDATE [ManagerStartDate],
+	P.PROSPECTSTATUSCODE [ProspectStatus],
+	[ANNUAL_SUMMARY_CASH_YEAR_0] as [YTDFiscal],
+	[ANNUAL_SUMMARY_CASH_YEAR_1] as [PriorFiscal],
+	case when BC.CONSTITUENCY is not null then BC.CONSTITUENCY
+		else PRIMARY_CONSTITUENCY
+		end [Constituency],
+		PAST_INTERACTIONS.NEXTMOVES [PastInteractions],
+	[C].[ID] as [CONSTITUENTID],
+	null [FY2018 Giving - Recognition Credits Countable Revenue No PG Smart Field\Currency ID]
+from [dbo].[V_QUERY_CONSTITUENT] as [C]
+inner join [dbo].[V_QUERY_PROSPECT] as [P] on [C].[ID] = [P].[ID] and [P].[PROSPECTSTATUSCODEID] in (N'49899170-d5be-448f-9fbb-45965ec0696f', N'3fbc0a51-43af-4c07-9390-40f80d5bd897', N'd41eed7a-4b69-4c3d-ae90-b6c012a876e9', N'd85b82bb-3638-4453-a82a-57ff4873b0ec')
+inner join [dbo].[V_QUERY_FUNDRAISER] as [PM] on [P].[PROSPECTMANAGERFUNDRAISERID] = [PM].[ID]
+inner join V_QUERY_PROSPECTPLAN [PLAN] on [PLAN].PROSPECTID = P.ID and historical = 0 
+left outer join -- pulls anyone with a move that doesn't need to be reviewed in 90 day meetings
+		(select C.ID
+		from constituent C 
+		left outer join V_QUERY_INTERACTIONALL I on I.CONSTITUENTID = C.ID
+		Where I.ACTUALDATE >= DATEADD(DAY,-90, getdate())
+		and I.INTERACTIONSUBCATEGORYID in 
+		(N'205d104a-3709-43c1-9fb0-b98f36fd3318',--Exchange
+		 N'b4cefa7c-d68d-4252-9522-fea6cd5a2cb8',--Exchange
+		  N'7483f43d-0c05-46de-8af5-62b452c14eda', --Exchange
+		  N'd475a863-4f55-4cca-9249-6eb9e40fff79', --Exchange
+		  N'79ea3478-5fc6-4134-8065-2f137f8e0e10', --Visit
+		  N'bf8c3558-828b-436f-aaab-cbaf04c2e57a', --Visit
+		  N'f93a8136-5a87-4d58-8c50-ee870dd42afd', --Visit
+		  N'6c721217-41f5-40d0-a181-6d8ffcbfddb5', --Visit
+		  N'bf667dfd-aebf-4e2e-9c23-993133741704', --Disqualification
+		  N'fb77e6ce-0323-4fe9-b87a-52ae303ca091', --Disqualification
+		  N'7c508088-d391-4abe-8cae-43f063c0f21b', --Disqualification
+		  N'91ee6ec7-c02d-447f-984a-aae0537ffbc4',--Contact Report
+		  '8E408FC6-95E0-4B84-A184-9881234E6543', -- Visit Request
+		'A27D15B0-A053-43C0-9559-01E12BBF62C5', --Visit Request
+		'27EEA6B0-9014-41B4-A53C-3F9E1EC717FF') -- Visit Request
+		)EXCLUDE on EXCLUDE.ID = C.ID
+
+left outer join EJ_CONSTITUENT_HISTORY as EJ_C on EJ_C.CONSTITUENTID = C.ID
+left outer join (
+				select distinct CON.CONSTITUENTID, CON.CONSTITUENCY
+				from V_QUERY_CONSTITUENCY as CON
+				where CON.CONSTITUENCY in ('Board', 'Council')
+				and CON.DATETO is null 
+				) BC on BC.CONSTITUENTID = [C].[ID] 
+inner join ( select distinct
+					[CONSTITUENT].[ID] [CONSTITUENTID],
+					[ORGANIZATIONHIERARCHY].[ID] [HIERARCHYID],
+					[ORGANIZATIONHIERARCHY].[SEQUENCE] [SEQUENCE],
+					case when [ORGANIZATIONPOSITIONHOLDER].[ID] is null then 1 else 0 end [ISVACANT],
+					[ORGANIZATIONPOSITION].[NAME] [POSITION],
+					[CONSTITUENT].[NAME] [POSITIONHOLDER],
+					[dbo].[UFN_BUSINESSUNITCODE_GETDESCRIPTION](ORGANIZATIONPOSITION.BUSINESSUNITCODEID) [BUSINESSUNIT],
+					[ORGANIZATIONPOSITIONHOLDER].[DATEFROM],
+					[ORGANIZATIONPOSITIONHOLDER].[DATETO]
+					from [dbo].[ORGANIZATIONHIERARCHY]
+					inner join dbo.ORGANIZATIONPOSITION on ORGANIZATIONPOSITION.ID = ORGANIZATIONHIERARCHY.ID
+					left outer join dbo.ORGANIZATIONPOSITIONHOLDER on ORGANIZATIONPOSITIONHOLDER.POSITIONID = ORGANIZATIONPOSITION.ID
+					left outer join dbo.CONSTITUENT on CONSTITUENT.ID = ORGANIZATIONPOSITIONHOLDER.CONSTITUENTID
+					where [dbo].[UFN_BUSINESSUNITCODE_GETDESCRIPTION](ORGANIZATIONPOSITION.BUSINESSUNITCODEID) = 'Major Gifts'
+					and [ORGANIZATIONPOSITIONHOLDER].[DATETO] is null 
+					) [TEAM] on [TEAM].[CONSTITUENTID] = P.[PROSPECTMANAGERFUNDRAISERID]
+left outer join (
+				select distinct
+					TEMP2.CONSTITUENTID,
+					NEXTMOVES = stuff((
+										select 
+											'; ' + 
+											MOVE 
+										from (
+												select
+													SUB.CONSTITUENTID,
+													concat(SUB.SUBCATEGORY, ' - ', SUB.DATE, ' - ', SUB.OBJECTIVE, ' - ',SUB.CONTACT_METHOD, ' - ',SUB.OWNER) MOVE
+												from (
+													select
+														INTERACTION.CONSTITUENTID,
+														INTERACTION.ID INTERACTION,
+														convert(char(10), INTERACTION.DATE, 101) DATE,
+														INTERACTION.STATUS,
+														INTERACTIONSUBCATEGORY.NAME SUBCATEGORY,
+														INTERACTIONTYPECODE.DESCRIPTION CONTACT_METHOD,
+														INTERACTION.OBJECTIVE,
+														O.NAME [OWNER],
+														INTERACTION.PROSPECTPLANSTEPSTAGE CATEGORY,
+														ROW_NUMBER() OVER (PARTITION BY INTERACTION.CONSTITUENTID
+																						ORDER BY INTERACTION.CONSTITUENTID,
+																					INTERACTION.DATE asc) AS ROWNUMBER
+													from V_QUERY_INTERACTIONALL INTERACTION
+													inner join INTERACTIONSUBCATEGORY on INTERACTION.INTERACTIONSUBCATEGORYID = INTERACTIONSUBCATEGORY.ID
+													inner join INTERACTIONTYPECODE on INTERACTION.INTERACTIONTYPECODEID = INTERACTIONTYPECODE.ID
+													inner join CONSTITUENT O on O.ID = INTERACTION.OWNERID
+													where INTERACTION.ACTUALDATE >= DATEADD(DAY,-90, getDate())
+														and INTERACTION.STATUS = 'Completed'
+													 ) SUB
+												where SUB.ROWNUMBER <= 5
+											) TEMP1
+											where TEMP1.CONSTITUENTID = TEMP2.CONSTITUENTID
+											for xml path ('')), 1, 1, '')
+				from (
+						select distinct
+							SUB.CONSTITUENTID,
+							concat(SUB.SUBCATEGORY, ' - ', SUB.DATE, ' - ', SUB.OBJECTIVE, ' - ',SUB.CONTACT_METHOD, ' - ',SUB.OWNER) MOVE
+						from (
+							select
+								INTERACTION.CONSTITUENTID,
+								INTERACTION.ID INTERACTION,
+								convert(char(10), INTERACTION.DATE, 101) DATE,
+								INTERACTION.STATUS,
+								INTERACTIONSUBCATEGORY.NAME SUBCATEGORY,
+								INTERACTIONTYPECODE.DESCRIPTION CONTACT_METHOD,
+								INTERACTION.OBJECTIVE,
+								O.NAME [OWNER],
+								INTERACTION.PROSPECTPLANSTEPSTAGE CATEGORY,
+								ROW_NUMBER() OVER (PARTITION BY INTERACTION.CONSTITUENTID
+															 ORDER BY INTERACTION.CONSTITUENTID,
+															INTERACTION.DATE asc) AS ROWNUMBER
+							from V_QUERY_INTERACTIONALL INTERACTION
+							inner join INTERACTIONSUBCATEGORY on INTERACTION.INTERACTIONSUBCATEGORYID = INTERACTIONSUBCATEGORY.ID
+							inner join INTERACTIONTYPECODE on INTERACTION.INTERACTIONTYPECODEID = INTERACTIONTYPECODE.ID
+							inner join CONSTITUENT O on O.ID = INTERACTION.OWNERID
+							where INTERACTION.ACTUALDATE >= DATEADD(DAY,-90, getDate())
+								and INTERACTION.STATUS = 'Completed'
+							) SUB
+						where SUB.ROWNUMBER <= 5
+					) TEMP2
+				) PAST_INTERACTIONS on C.ID = PAST_INTERACTIONS.CONSTITUENTID
+
+where EXCLUDE.ID is null 
+and C.ISINACTIVE = 0 
+and C.DECEASED = 0 
+)SUB
+OPTION (OPTIMIZE FOR UNKNOWN)	
