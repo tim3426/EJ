@@ -5,6 +5,8 @@ C.NAME
 ,C.Age
 ,C.City
 ,C.State
+,case when [Do Not Call].ID is null then C.PHONE else null end as [PHONE]
+,case when [Do Not Email].ID is null then C.EMAIL else null end as [EMAIL]
 ,I.OBJECTIVE as [Summary]
 ,I.EXPECTEDDATE as [Expected Date]
 ,I.CATEGORY_TRANSLATION as [Category]
@@ -14,9 +16,9 @@ C.NAME
 ,O.ID as [Owner Record ID]
 ,C.CONSTITUENTID as [Constituent Record ID]
 ,OTEAM.BUSINESSUNIT as [Team]
+,I.PROSPECTPLANID as [Plan ID]
 ,I.ID as [Interaction Record ID]
-,case when [Do Not Email].ID is null then C.EMAIL else null end as [EMAIL]
-,case when [Do Not Call].ID is null then C.PHONE else null end as [PHONE]
+
 
 
 
@@ -43,3 +45,4 @@ WHERE I.STATUS = 'Pending'
 AND C.DECEASED = 0 and C.INACTIVE = 0 
 AND [Do Not Contact].ID is null
 AND OTEAM.BUSINESSUNIT = 'Planned gifts'
+AND I.EXPECTEDDATE BETWEEN DATEADD(MONTH,-3,GETDATE()) AND DATEADD(MONTH,3,GETDATE())
