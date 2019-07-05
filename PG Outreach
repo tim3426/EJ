@@ -16,7 +16,8 @@ C.NAME
 ,O.ID as [Owner Record ID]
 ,C.CONSTITUENTID as [Constituent Record ID]
 ,OTEAM.BUSINESSUNIT as [Team]
-,I.PROSPECTPLANID as [Plan ID]
+,case when [I].[PROSPECTPLANID] is not null then 'True'
+else 'False' end as [Ismove]
 ,I.ID as [Interaction Record ID]
 
 
