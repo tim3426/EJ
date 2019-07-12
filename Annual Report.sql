@@ -46,6 +46,7 @@ case when [Anonymous].ID is null then ''
 ,N.[ID] as [Name Format Record ID]
 ,C.ID as [FY2019 Giving - Recognition Credits Countable Revenue No PG Smart Field\Currency ID]
 ,C.ID as [QUERYRECID]
+,C.[ISORGANIZATION] as [Is organization]
 from V_QUERY_CONSTITUENT as C
 inner join 
 	(select sum(EJ_REVENUE_RECOGNITION.AMOUNT) as [Countable giving]
@@ -85,6 +86,7 @@ select top(@MAXROWS) [Anonymous],
 	[Recognition ID],
 	[Constituent Record ID],
 	[Name Format Record ID],
+	[Is organization],
 	[FY2019 Giving - Recognition Credits Countable Revenue No PG Smart Field\Currency ID]
 from [ROOT_CTE] as QUERYRESULTS
 where ((@PROSPECTMANAGER is null or @PROSPECTMANAGER = '') or QUERYRESULTS.[Prospect manager] LIKE  '%' + @PROSPECTMANAGER + '%')
