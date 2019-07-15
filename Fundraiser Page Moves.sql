@@ -21,8 +21,13 @@ with
 select  distinct
  	[C].[NAME] as [Prospect name],
 	[PP].[NAME] as [Plan name],
+	case when dateDiff(day, [I].[EXPECTEDDATE], getDate()) between 1 and 29 then 'Overdue 1+ days' 
+	     when dateDiff(day, [I].[EXPECTEDDATE], getDate()) between 30 and 59 then 'Overdue 30+ days'
+		 when dateDiff(day, [I].[EXPECTEDDATE], getDate()) between 60 and 120 then 'Overdue 60+ days' 
+		 when dateDiff(day, [I].[EXPECTEDDATE], getDate()) >=120 then 'Overdue 120+ days'
+		 else 'Scheduled'
+		 end as [Overdue?],
 	[I].[EXPECTEDDATE] as [Expected date],
-	[I].[ACTUALDATE] as [Actual date],
 	[I].[PROSPECTPLANSTEPSTAGE] as [Stage],
 	[I].[OBJECTIVE] as [Objective],
 	[I].[CATEGORY_TRANSLATION] as [Category],
@@ -34,12 +39,6 @@ select  distinct
 	[O].[NAME] as [Owner],
 	[FR].[NAME] as [Prospect manager],
 	case when [PG].[ID] is null then 'No' else 'Yes' end as [PG],
-	case when dateDiff(day, [I].[EXPECTEDDATE], getDate()) between 1 and 29 then 'Overdue 1+ days' 
-	     when dateDiff(day, [I].[EXPECTEDDATE], getDate()) between 30 and 59 then 'Overdue 30+ days'
-		 when dateDiff(day, [I].[EXPECTEDDATE], getDate()) between 60 and 120 then 'Overdue 60+ days' 
-		 when dateDiff(day, [I].[EXPECTEDDATE], getDate()) >=120 then 'Overdue 120+ days'
-		 else 'Scheduled'
-		 end as [Overdue?],
     [C].[CITY] as [City],
     [C].[STATE] as [State],
 	[C].[CONSTITUENTID] as [CONSTITUENTID],
@@ -68,8 +67,8 @@ where  [I].[STATUS] not in ('Completed', 'Declined', 'Cancelled', 'Canceled'))
 
 select top(@MAXROWS) [Prospect name],
 	[Plan name],
+	[Overdue?],
 	[Expected date],
-	[Actual date],
 	[Stage],
 	[Objective],
 	[Category],
@@ -81,7 +80,6 @@ select top(@MAXROWS) [Prospect name],
 	[Owner],
 	[Prospect manager],
 	[PG],
-	[Overdue?],
     [City],
     [State],
 	[INTERACTIONID],
