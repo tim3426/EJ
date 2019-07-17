@@ -47,6 +47,9 @@ case when [Anonymous].ID is null then ''
 ,C.ID as [FY2019 Giving - Recognition Credits Countable Revenue No PG Smart Field\Currency ID]
 ,C.ID as [QUERYRECID]
 ,C.[ISORGANIZATION] as [Is organization]
+,case when IG.ID is null then ''
+    else 'IG'
+    end as [IG]
 from V_QUERY_CONSTITUENT as C
 inner join 
 	(select sum(EJ_REVENUE_RECOGNITION.AMOUNT) as [Countable giving]
@@ -67,6 +70,8 @@ left join [dbo].[V_QUERY_CONSTITUENT] as SpouseC on SpouseC.ID = C.SPOUSE_ID
 left join dbo.[UFN_ADHOCQUERYIDSET_C1B59FBE_5DE6_45CA_B2F0_1878701BC290]() as [Amicus] on C.ID = [Amicus].ID
 left join dbo.[UFN_ADHOCQUERYIDSET_2D70B98E_F40D_408E_A7B8_D15A2E5C6548]() as [PG] on C.ID = [PG].ID
 left join dbo.[UFN_ADHOCQUERYIDSET_5568D293_8A31_4905_9D3C_8DB227E20B9C]() as [Anonymous] on C.ID = [Anonymous].ID
+left join dbo.[UFN_ADHOCQUERYIDSET_40D3DB72_42CF_410D_8FC6_1FC89936810B]() as [IG] on C.ID = IG.ID
+
 )
 
 
@@ -87,6 +92,7 @@ select top(@MAXROWS) [Anonymous],
 	[Constituent Record ID],
 	[Name Format Record ID],
 	[Is organization],
+	[IG],
 	[FY2019 Giving - Recognition Credits Countable Revenue No PG Smart Field\Currency ID]
 from [ROOT_CTE] as QUERYRESULTS
 where ((@PROSPECTMANAGER is null or @PROSPECTMANAGER = '') or QUERYRESULTS.[Prospect manager] LIKE  '%' + @PROSPECTMANAGER + '%')
