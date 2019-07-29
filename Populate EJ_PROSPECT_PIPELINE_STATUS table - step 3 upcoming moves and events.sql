@@ -16,6 +16,7 @@ select distinct
 from
 EJ_PROSPECT_PIPELINE_STATUS PIPELINE
 
+
 left outer join (
 							
 							select distinct
@@ -41,6 +42,7 @@ left outer join (
 									) PREVIOUS_EVENTDATE
 								where PREVIOUS_EVENTDATE.ROWNUMBER = 1					
 				) PRIOR_EVENT on PRIOR_EVENT.CONSTITUENTID = PIPELINE.PROSPECTID
+
 
 left outer join (
 				select distinct
