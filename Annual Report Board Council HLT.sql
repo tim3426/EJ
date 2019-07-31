@@ -34,10 +34,15 @@ case when [Anonymous].ID is null then ''
 ,[Recognition].ID as [Recognition ID]
 ,C.ID as [Constituent Record ID]
 ,N.[ID] as [Name Format Record ID]
-,C.ID as [FY2019 Giving - Recognition Credits Countable Revenue No PG Smart Field\Currency ID]
+,C.ID as [FY2019 Giving - Recognition Credits Countable Revenue Smart Field\Currency ID]
 ,C.ID as [QUERYRECID]
 from V_QUERY_CONSTITUENT as C
-inner join dbo.[UFN_ADHOCQUERYIDSET_643DFDF3_424F_4B93_B5FF_E2594DE1F226]() as BoardCouncilHLT on C.[ID] = BoardCouncilHLT.ID
+inner join V_QUERY_CONSTITUENCY as Constituencies on CONSTITUENCYDEFINITIONID in (N'b998248e-820c-411a-bc86-68ef5b626258'
+		, N'3f3eee49-0e88-4d02-ac4b-939b87729de9'
+		, N'a1aeeb55-97ac-4430-9b9a-f2044e9f0a4c')
+ and ([Constituencies].[DATEFROM] <= '2019-06-30')
+ and (([Constituencies].[DATETO] between '2018-07-01' and '2019-06-30')
+ or ([Constituencies].[DATETO] is null))
 left join 
 	(select sum(EJ_REVENUE_RECOGNITION.AMOUNT) as [Countable giving]
 	,EJ_REVENUE_RECOGNITION.CONSTITUENTID
