@@ -36,10 +36,6 @@ case when [Anonymous].ID is null then ''
 ,N.[ID] as [Name Format Record ID]
 ,C.ID as [FY2019 Giving - Recognition Credits Countable Revenue No PG Smart Field\Currency ID]
 ,C.ID as [QUERYRECID]
-,C.[ISORGANIZATION] as [Is organization]
-,case when IG.ID is null then ''
-    else 'IG'
-    end as [IG]
 from V_QUERY_CONSTITUENT as C
 inner join dbo.[UFN_ADHOCQUERYIDSET_643DFDF3_424F_4B93_B5FF_E2594DE1F226]() as BoardCouncilHLT on C.[ID] = BoardCouncilHLT.ID
 left join 
@@ -60,7 +56,6 @@ left join [dbo].[V_QUERY_CONSTITUENT] as SpouseC on SpouseC.ID = C.SPOUSE_ID
 left join dbo.[UFN_ADHOCQUERYIDSET_C1B59FBE_5DE6_45CA_B2F0_1878701BC290]() as [Amicus] on C.ID = [Amicus].ID
 left join dbo.[UFN_ADHOCQUERYIDSET_2D70B98E_F40D_408E_A7B8_D15A2E5C6548]() as [PG] on C.ID = [PG].ID
 left join dbo.[UFN_ADHOCQUERYIDSET_5568D293_8A31_4905_9D3C_8DB227E20B9C]() as [Anonymous] on C.ID = [Anonymous].ID
-left join dbo.[UFN_ADHOCQUERYIDSET_40D3DB72_42CF_410D_8FC6_1FC89936810B]() as [IG] on C.ID = IG.ID
 left join dbo.[UFN_ADHOCQUERYIDSET_6D210163_1E62_4232_953D_5B944F911E87]() as [Board] on C.ID = [Board].ID
 left join dbo.[UFN_ADHOCQUERYIDSET_437EE871_31B3_4E17_B560_3AE5C3F4DCFA]() as [Council] on C.ID = [Council].ID
 left join dbo.[UFN_ADHOCQUERYIDSET_24221E6D_ED9F_4802_B2AA_D3801F6A836D]() as [HLT] on C.ID = [HLT].ID
