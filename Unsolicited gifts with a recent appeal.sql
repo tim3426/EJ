@@ -16,7 +16,7 @@ from
 	,R.[EFFECTIVEDATE] as [Date]
 	,A.Description as [Description]
     ,CA.DATESENT as [Appeal date]
-	,R.TYPE as [Revenue category]
+	,R.TYPE as [Type]
     ,ROW_NUMBER() OVER (PARTITION BY CA.CONSTITUENTID  ORDER BY CA.DATESENT desc) AS ROWNUMBER
 	,R.[REVENUEID] as [Revenue ID]
     ,A.[ID] as [Appeal ID]
