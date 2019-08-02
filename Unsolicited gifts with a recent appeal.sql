@@ -30,12 +30,14 @@ inner join EJ_CONSTITUENT_HISTORY as C on R.CONSTITUENTID = C.CONSTITUENTID
 	,'Identified'
 	,'Qualification'
 	)
-inner join [V_QUERY_CONSTITUENTAPPEAL] as CA on CA.CONSTITUENTID = C.CONSTITUENTID and CA.DATEADDED between dateadd(month,-3,R.EFFECTIVEDATE) and dateadd(day,-3,R.EFFECTIVEDATE)
-inner join [V_QUERY_APPEAL] as A on A.ID = CA.APPEALID and A.APPEALCATEGORYCODE_DESCRIPTION not in 
-			('Acknowledgements'
-			,'C4'
-			,'Major Giving'
-			,'Planned Giving'
+inner join [V_QUERY_CONSTITUENTAPPEAL] as CA on CA.CONSTITUENTID = C.CONSTITUENTID and CA.DATEADDED between dateadd(month,-3,R.EFFECTIVEDATE) and dateadd(day,-7,R.EFFECTIVEDATE)
+inner join [V_QUERY_APPEAL] as A on A.ID = CA.APPEALID and A.APPEALCATEGORYCODE_DESCRIPTION in 
+			('Acquisition'
+			,'Appeal'
+			,'Reinstate'
+			,'Renewal'
+			,'Sustainer Invite'
+			,'Sustainer Upgrade'
 			)
 where R.EFFECTIVEDATE >= dateadd(month,-3,getdate())
 	and R.APPEALCATEGORY = 'Unsolicited'
