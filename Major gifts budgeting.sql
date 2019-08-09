@@ -1,3 +1,7 @@
+declare @FISCALYEAR nvarchar(25) = convert(nvarchar(25),case when month(getDate()) > 6 then year(getDate())+1 else year(getDate())end);
+declare @ENDDATE date = cast(@FISCALYEAR + '-' + '06' + '-' + '30' as date)
+declare @STARTDATE date = cast(cast(convert(int,@FISCALYEAR) - 1 as nvarchar) + '-'+ '07' + '-' + '01' as date);
+
 select distinct C.CONSTITUENTID as [PROSPECTID]
 	,C.LOOKUPID [Lookup ID]
 	,C.[SORT_NAME] as [Sort]
@@ -35,18 +39,18 @@ select distinct C.CONSTITUENTID as [PROSPECTID]
 	,C.EJ_INCLINATION as [Inclination]
 	,RECENTRESEARCH.VALUE [Last Research Type]
 	,RECENTRESEARCH.STARTDATE [Last Research Date]
-	,LASTMOVE.[Last Step] as [Last Move]
-	,LASTMOVE.[Last Step Date] as [Last Move Date]
-	,LASTMOVE.[Last Step Owner] as [Last Move Owner]
-	,LASTMOVE.[Next Step] [Next Move]
-	,LASTMOVE.[Next Step Date] [Next Move Date]
-	,LASTMOVE.[Next Step Owner] [Next Move Owner]
+	--,LASTMOVE.[Last Step] as [Last Move]
+	--,LASTMOVE.[Last Step Date] as [Last Move Date]
+	--,LASTMOVE.[Last Step Owner] as [Last Move Owner]
+	,NEXTMOVE.[Objective] [Next Move]
+	,NEXTMOVE.[ExpectedDate] [Next Move Date]
+	,NEXTMOVE.[OwnerID] [Next Move Owner]
 	,C.[ADDRESS] as [Address]
 	,C.[ZIP] as [Zip]
-	,C.[PRIMARYADDRESSEE] as [Addressee]
-	,C.[PRIMARYSALUTATION] as [Salutation]
+	,ADSAL.[PRIMARYADDRESSEE] as [Addressee]
+	,ADSAL.[PRIMARYSALUTATION] as [Salutation]
 	,C.EMAIL as [Email]
-	,C.PROSPECTMANAGERTEAM [Team]
+	,C.PROSPECT_MANAGER_TEAM [Team]
 	,O.[BASECURRENCYID] as [Revenue\Base currency ID]
 	,O.[BASECURRENCYID] as [Revenue\Base currency ID 1]
 	,O.[BASECURRENCYID] as [Revenue\Base currency ID 2]
@@ -58,26 +62,31 @@ select distinct C.CONSTITUENTID as [PROSPECTID]
 	,O.[BASECURRENCYID] as [Prospect\Prospect Plans\Opportunities\BASECURRENCYID 4]
 	,O.[BASECURRENCYID] as [Prospect\Prospect Plans\Opportunities\BASECURRENCYID 5]
 	,C.[CONSTITUENTID] as [QUERYRECID]
-from EJ_CONSTITUENT_HISTORY
+from EJ_CONSTITUENT_HISTORY as C
 	inner join PROSPECTPLAN [PLAN] on [PLAN].PROSPECTID = C.CONSTITUENTID 
 		and [PLAN].ISACTIVE = 1 
 		and [PLAN].PROSPECTPLANTYPECODEID <> '98F61944-2900-46E5-8C95-C1EE8BDA4593'--'Earthjustice Action c(4)'
 	left join opportunity O  on O.PROSPECTPLANID = [PLAN].ID
 	left outer join EJ_BUDGET_AUDIT BUDGET on BUDGET.PLANID = [PLAN].ID and BUDGET.FISCAL_YEAR = @FISCALYEAR
 	left join EJ_CONSTITUENT_HISTORY as [Primary] on [Primary].CONSTITUENTID = [PLAN].PRIMARYMANAGERFUNDRAISERID
-	left outer join [dbo].[USR_V_QUERY_PROSPECTPLANSTEPS] as LASTMOVE on [PLAN].[ID] = [LASTMOVE].[ID]
-	left outer join [dbo].[V_QUERY_MODELINGANDPROPENSITY_SIMPLE] as RESEARCH on C.[ID] = RESEARCH.[ID]
+	--left outer join [dbo].[USR_V_QUERY_PROSPECTPLANSTEPS] as LASTMOVE on [PLAN].[ID] = [LASTMOVE].[ID]
+	left outer join V_QUERY_ADDRESSEE_SALUTATION ADSAL on ADSAL.ID = C.CONSTITUENTID
+	left outer join [dbo].[V_QUERY_MODELINGANDPROPENSITY_SIMPLE] as RESEARCH on C.[CONSTITUENTID] = RESEARCH.[ID]
 	left outer join [dbo].[V_QUERY_ATTRIBUTE6920A0A601734A38A098EE001E5D02F0] as [RECENTRESEARCH] on [RESEARCH].ID = [RECENTRESEARCH].ID
 	left join 
-		select *
-		from
-		(OBJECTIVE
-		,OWNERID
-		,EXPECTEDDATE
-		,ROW_NUMBER() OVER (PARTITION BY CONSTITUENTID ORDER BY EXPECTEDDATE ASC)
-		FROM V_QUERY_INTERACTIONALL
-		WHERE EXPECTEDDATE > getdate()
-		) as NEXT
+			(select *
+			from
+			(SELECT OBJECTIVE
+			,OWNERID
+			,EXPECTEDDATE
+			,CONSTITUENTID
+			,ROW_NUMBER() OVER (PARTITION BY CONSTITUENTID ORDER BY EXPECTEDDATE DESC) as ROWNUMBER
+			FROM V_QUERY_INTERACTIONALL
+			WHERE EXPECTEDDATE > getdate()
+				AND PROSPECTPLANID is not null
+			) as NEXTMOVES 
+			where ROWNUMBER = 1
+			) as NEXTMOVE on NEXTMOVE.CONSTITUENTID = C.CONSTITUENTID
 
 					left outer join (
                            select
@@ -124,7 +133,7 @@ left outer join (
 
 left outer join [dbo].[V_QUERY_OPPORTUNITYDESIGNATION] as [V_QUERY_CONSTITUENT\Prospect\Prospect Plans\Opportunities\Opportunity Designations] on O.[ID] = [V_QUERY_CONSTITUENT\Prospect\Prospect Plans\Opportunities\Opportunity Designations].[OPPORTUNITYID]
 
-where PROSPECT_STATUS in (	
+where C.PROSPECTSTATUS in (	
 			'Identified',
 			'Accepted',
 			'Qualification',
