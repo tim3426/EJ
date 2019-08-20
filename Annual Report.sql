@@ -37,7 +37,7 @@ case when [Anonymous].ID is null then ''
 ,C.[NICKNAME] as [Nickname]
 ,SpouseC.[NICKNAME] as [Spouse nickname]
 ,[AddSal].[PRIMARYADDRESSEE] as [Primary Addressee]
-,case when [Recognition].STATUS = 'Lapsed' then 'Active'
+,case when [Recognition].STATUS = 'Lapsed' then 'Reviewed'
     else 'Pending'
     end as [Status]
 ,[Countable giving]
