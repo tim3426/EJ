@@ -1,3 +1,22 @@
+USE [ejdevo]
+GO
+/****** Object:  StoredProcedure [dbo].[USP_DATALIST_ADHOCQUERY_8D5188DF_4508_431B_9F26_2B738E08B7A4]    Script Date: 20-Aug-19 1:42:08 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER procedure [dbo].[USP_DATALIST_ADHOCQUERY_8D5188DF_4508_431B_9F26_2B738E08B7A4](
+@PROSPECTMANAGER nvarchar(154) = null,
+	@STATUS nvarchar(16) = null,
+	@CURRENTAPPUSERID uniqueidentifier,
+	@SECURITYFEATUREID uniqueidentifier,
+	@SECURITYFEATURETYPE tinyint,
+	@MAXROWS int = 100000) as
+set nocount on;
+set @PROSPECTMANAGER = dbo.UFN_SEARCHCRITERIA_GETLIKEPARAMETERVALUE2(@PROSPECTMANAGER, 0, null, 0);
+with
+[ROOT_CTE] as (
 select  distinct 
 case when [Anonymous].ID is null then ''
     else 'Anonymous' 
@@ -64,3 +83,31 @@ left join dbo.[UFN_ADHOCQUERYIDSET_5568D293_8A31_4905_9D3C_8DB227E20B9C]() as [A
 left join dbo.[UFN_ADHOCQUERYIDSET_6D210163_1E62_4232_953D_5B944F911E87]() as [Board] on C.ID = [Board].ID
 left join dbo.[UFN_ADHOCQUERYIDSET_437EE871_31B3_4E17_B560_3AE5C3F4DCFA]() as [Council] on C.ID = [Council].ID
 left join dbo.[UFN_ADHOCQUERYIDSET_24221E6D_ED9F_4802_B2AA_D3801F6A836D]() as [HLT] on C.ID = [HLT].ID
+)
+
+
+select top(@MAXROWS) [Amicus],
+	[Lookup ID],
+	[Name],
+	[Listing],
+	[Anonymous],
+	[Recognition level],
+	[Prospect manager],
+	[Nickname],
+	[Spouse nickname],
+	[Primary addressee],
+	[Status],
+	[Countable giving],
+	[Board],
+	[Council],
+	[HLT],
+	[PG],
+	[Constituent Record ID],
+	[Name Format Record ID],
+	[Recognition ID],
+	[FY2019 Giving - Recognition Credits Countable Revenue Smart Field\Currency ID]
+from [ROOT_CTE] as QUERYRESULTS
+where ((@PROSPECTMANAGER is null or @PROSPECTMANAGER = '') or QUERYRESULTS.[Prospect manager] LIKE  '%' + @PROSPECTMANAGER + '%')
+	and ((@STATUS is null or @STATUS = '') or QUERYRESULTS.[Status] = @STATUS)
+
+

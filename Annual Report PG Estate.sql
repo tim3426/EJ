@@ -1,3 +1,19 @@
+USE [ejdevo]
+GO
+/****** Object:  StoredProcedure [dbo].[USP_DATALIST_ADHOCQUERY_AE3B2A5D_C12D_4719_9DBE_A52C88864FB9]    Script Date: 20-Aug-19 1:42:50 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER procedure [dbo].[USP_DATALIST_ADHOCQUERY_AE3B2A5D_C12D_4719_9DBE_A52C88864FB9](
+	@CURRENTAPPUSERID uniqueidentifier,
+	@SECURITYFEATUREID uniqueidentifier,
+	@SECURITYFEATURETYPE tinyint,
+	@MAXROWS int = 100000) as
+set nocount on;
+with
+[ROOT_CTE] as (
 select  distinct 
 case when [Anonymous].ID is null then ''
     else 'Anonymous' 
@@ -15,7 +31,7 @@ case when [Anonymous].ID is null then ''
 ,C.[NICKNAME] as [Nickname]
 --,SpouseC.[NICKNAME] as [Spouse nickname]
 ,[AddSal].[PRIMARYADDRESSEE] as [Primary Addressee]
-,case when [Recognition].STATUS = 'Active' then 'Reviewed'
+,case when [Recognition].STATUS = 'Lapsed' then 'Reviewed'
     else 'Pending'
     end as [Status]
 --,[FY2019].VALUE as [Countable giving]
@@ -23,7 +39,7 @@ case when [Anonymous].ID is null then ''
 ,[Recognition].ID as [Recognition ID]
 ,C.ID as [Constituent Record ID]
 ,N.[ID] as [Name Format Record ID]
-,C.ID as [FY2019 Giving - Recognition Credits Countable Revenue No PG Smart Field\Currency ID]
+,C.ID as [FY2019 Giving - Recognition Credits Countable Revenue Smart Field\Currency ID]
 ,C.ID as [QUERYRECID]
 from V_QUERY_CONSTITUENT as C
 inner join V_QUERY_CONSTITUENCY as CONSTITUENCY on C.ID = CONSTITUENCY.CONSTITUENTID and CONSTITUENCY = 'PG Estate'
@@ -44,3 +60,23 @@ left join [dbo].[V_QUERY_ADDRESSEE_SALUTATION] as [AddSal] on C.ID = [AddSal].[I
 --left join [dbo].[V_QUERY_CONSTITUENT] as SpouseC on SpouseC.ID = C.SPOUSE_ID
 left join dbo.[UFN_ADHOCQUERYIDSET_C1B59FBE_5DE6_45CA_B2F0_1878701BC290]() as [Amicus] on C.ID = [Amicus].ID
 left join dbo.[UFN_ADHOCQUERYIDSET_5568D293_8A31_4905_9D3C_8DB227E20B9C]() as [Anonymous] on C.ID = [Anonymous].ID
+)
+
+
+select top(@MAXROWS) [Anonymous],
+	[Amicus],
+	[Name],
+	[Lookup ID],
+	[Listing],
+	[Recognition level],
+	[Nickname],
+	[Primary addressee],
+	[Status],
+	[Countable giving],
+	[Recognition ID],
+	[Constituent Record ID],
+	[Name Format Record ID],
+	[FY2019 Giving - Recognition Credits Countable Revenue Smart Field\Currency ID]
+from [ROOT_CTE] as QUERYRESULTS
+
+
