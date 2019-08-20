@@ -1,3 +1,22 @@
+USE [ejdevo]
+GO
+/****** Object:  StoredProcedure [dbo].[USP_DATALIST_ADHOCQUERY_3A6C4BCB_E9AE_4BC2_BBF5_F2790C93283D]    Script Date: 20-Aug-19 1:40:53 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER procedure [dbo].[USP_DATALIST_ADHOCQUERY_3A6C4BCB_E9AE_4BC2_BBF5_F2790C93283D](
+@PROSPECTMANAGER nvarchar(154) = null,
+	@STATUS nvarchar(16) = null,
+	@CURRENTAPPUSERID uniqueidentifier,
+	@SECURITYFEATUREID uniqueidentifier,
+	@SECURITYFEATURETYPE tinyint,
+	@MAXROWS int = 100000) as
+set nocount on;
+set @PROSPECTMANAGER = dbo.UFN_SEARCHCRITERIA_GETLIKEPARAMETERVALUE2(@PROSPECTMANAGER, 0, null, 0);
+with
+[ROOT_CTE] as (
 select  distinct 
 case when [Anonymous].ID is null then ''
     else 'Anonymous' 
@@ -15,7 +34,7 @@ case when [Anonymous].ID is null then ''
 ,C.[NICKNAME] as [Nickname]
 ,SpouseC.[NICKNAME] as [Spouse nickname]
 ,[AddSal].[PRIMARYADDRESSEE] as [Primary Addressee]
-,case when [Recognition].STATUS = 'Active' then 'Reviewed'
+,case when [Recognition].STATUS = 'Lapsed' then 'Reviewed'
     else 'Pending'
     end as [Status]
 ,[FY2019].VALUE as [Countable giving]
@@ -42,3 +61,28 @@ left join dbo.[UFN_ADHOCQUERYIDSET_C1B59FBE_5DE6_45CA_B2F0_1878701BC290]() as [A
 left join dbo.[UFN_ADHOCQUERYIDSET_5568D293_8A31_4905_9D3C_8DB227E20B9C]() as [Anonymous] on C.ID = [Anonymous].ID
 left join dbo.[UFN_ADHOCQUERYIDSET_40D3DB72_42CF_410D_8FC6_1FC89936810B]() as [IG] on C.ID = IG.ID
 where CONSTITUENCY.ID is null
+)
+
+
+select top(@MAXROWS) [Amicus],
+	[Lookup ID],
+	[Name],
+	[Listing],
+	[Anonymous],
+	[Recognition level],
+	[Prospect manager],
+	[Nickname],
+	[Spouse nickname],
+	[Primary addressee],
+	[Status],
+	[Countable giving],
+	[Recognition ID],
+	[Constituent Record ID],
+	[Name Format Record ID],
+	[IG],
+	[FY2019 Giving - Recognition Credits Countable Revenue Smart Field\Currency ID]
+from [ROOT_CTE] as QUERYRESULTS
+where ((@PROSPECTMANAGER is null or @PROSPECTMANAGER = '') or QUERYRESULTS.[Prospect manager] LIKE  '%' + @PROSPECTMANAGER + '%')
+	and ((@STATUS is null or @STATUS = '') or QUERYRESULTS.[Status] = @STATUS)
+
+order by [Name] asc
