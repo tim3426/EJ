@@ -1,6 +1,6 @@
 USE [ejdevo]
 GO
-/****** Object:  StoredProcedure [dbo].[USP_DATALIST_ADHOCQUERY_8D5188DF_4508_431B_9F26_2B738E08B7A4]    Script Date: 20-Aug-19 1:42:08 PM ******/
+/****** Object:  StoredProcedure [dbo].[USP_DATALIST_ADHOCQUERY_8D5188DF_4508_431B_9F26_2B738E08B7A4]    Script Date: 26-Aug-19 11:20:16 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -69,6 +69,7 @@ inner join
 		or (V_QUERY_CONSTITUENCY.[DATETO] is null))
 		) as Constituents
 	) as BoardCouncilHLT on BoardCouncilHLT.CONSTITUENTID = C.ID
+
 left join 
 	(select sum(EJ_REVENUE_RECOGNITION.AMOUNT) as [Countable giving]
 	,EJ_REVENUE_RECOGNITION.CONSTITUENTID
@@ -77,7 +78,7 @@ left join
 		and CATEGORY <> 'Planned Giving'
 	group by EJ_REVENUE_RECOGNITION.CONSTITUENTID
 	) as R on R.CONSTITUENTID = C.ID
-left join [dbo].[V_QUERY_RECOGNITION_816AA4D32F8F4F77BE995E6B27B5FD19] as [Recognition] on R.CONSTITUENTID = [Recognition].[CONSTITUENTID]
+left join [dbo].[V_QUERY_RECOGNITION_816AA4D32F8F4F77BE995E6B27B5FD19] as [Recognition] on C.ID = [Recognition].[CONSTITUENTID]
 left join [dbo].[V_QUERY_CONSTITUENTNAMEFORMAT] as [N] on C.ID = [N].[CONSTITUENTID]
 	AND [N].NAMEFORMATTYPECODEID_TRANSLATION = 'Annual Report Listing'
 left join [dbo].[V_QUERY_PROSPECT] as P on C.ID = P.[ID] and P.[PROSPECTSTATUSCODEID] in (N'49899170-d5be-448f-9fbb-45965ec0696f', N'3fbc0a51-43af-4c07-9390-40f80d5bd897', N'd41eed7a-4b69-4c3d-ae90-b6c012a876e9', N'd85b82bb-3638-4453-a82a-57ff4873b0ec')
