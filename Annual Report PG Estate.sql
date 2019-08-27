@@ -24,7 +24,8 @@ case when [Anonymous].ID is null then ''
 ,C.[NAME] as [Name]
 ,C.[LOOKUPID] as [Lookup ID]
 ,case when N.[FORMATTED] = '' then N.CUSTOMNAME
-	else N.[FORMATTED] 
+	when N.[FORMATTED] <> '' then N.[FORMATTED]
+	else ALIAS.NAME
 	end as [Listing]
 ,[Recognition].[RECOGNITIONLEVEL] as [Recognition level]
 --,[PM].[NAME] as [Prospect manager]
@@ -41,6 +42,7 @@ case when [Anonymous].ID is null then ''
 ,N.[ID] as [Name Format Record ID]
 ,C.ID as [FY2019 Giving - Recognition Credits Countable Revenue Smart Field\Currency ID]
 ,C.ID as [QUERYRECID]
+,C.[ISORGANIZATION] as [Is organization]
 from V_QUERY_CONSTITUENT as C
 inner join V_QUERY_CONSTITUENCY as CONSTITUENCY on C.ID = CONSTITUENCY.CONSTITUENTID and CONSTITUENCY = 'PG Estate'
 inner join 
@@ -54,6 +56,8 @@ inner join
 left join [dbo].[V_QUERY_RECOGNITION_816AA4D32F8F4F77BE995E6B27B5FD19] as [Recognition] on C.ID = [Recognition].[CONSTITUENTID]
 left join [dbo].[V_QUERY_CONSTITUENTNAMEFORMAT] as [N] on C.ID = [N].[CONSTITUENTID]
 	AND [N].NAMEFORMATTYPECODEID_TRANSLATION = 'Annual Report Listing'
+left join [dbo].[ALIAS] on C.ID = ALIAS.CONSTITUENTID 
+	AND ALIAS.ALIASTYPECODEID = 'A4CBF120-5223-42E4-BB02-8040C494750F'
 --left join [dbo].[V_QUERY_PROSPECT] as P on C.ID = P.[ID] and P.[PROSPECTSTATUSCODEID] in (N'49899170-d5be-448f-9fbb-45965ec0696f', N'3fbc0a51-43af-4c07-9390-40f80d5bd897', N'd41eed7a-4b69-4c3d-ae90-b6c012a876e9', N'd85b82bb-3638-4453-a82a-57ff4873b0ec')
 --left join [dbo].[V_QUERY_FUNDRAISER] as PM on P.[PROSPECTMANAGERFUNDRAISERID] = [PM].[ID]
 left join [dbo].[V_QUERY_ADDRESSEE_SALUTATION] as [AddSal] on C.ID = [AddSal].[ID]
@@ -76,6 +80,7 @@ select top(@MAXROWS) [Anonymous],
 	[Recognition ID],
 	[Constituent Record ID],
 	[Name Format Record ID],
+	[Is organization],
 	[FY2019 Giving - Recognition Credits Countable Revenue Smart Field\Currency ID]
 from [ROOT_CTE] as QUERYRESULTS
 
