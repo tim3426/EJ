@@ -17,6 +17,11 @@ with
 [ROOT_CTE] as (
 select E.Name as [Event]
     ,C.NAME as [Name]
+	,I.Objective as [Title]
+	,I.EXPECTEDDATE as [Expected invitation date]
+	,I.[CONTACTMETHOD] as [Contact method]
+	,I.STATUS as [Status]
+	,O.NAME as [Owner]
 	--,R.[TYPE] as [Type]
 	--,R.[STATUS] as [Status]
 	--,R.[HOSTNAME] as [Host]
@@ -35,19 +40,20 @@ select E.Name as [Event]
 	,PM.Name as [Primary manager]
 	,Steps.[Next Step Date] as [Next interaction date]
 	,PRIOR_EVENT.Name as [Last event attended]
-	,R.ID as [Registrant ID]
+	,I.ID as [Interaction ID]
 	,C.CONSTITUENTID as [Constituent ID]
 	,E.ID as [Event ID]
 	,Registration.ID as [Registration ID]
     ,F.ID as [Prospect Manager ID]
-	,R.[ID] as [Constituent\Cumulative Giving - Recognition Credits Countable Revenue Smart Field\Currency ID]
-	,R.[ID] as [Constituent\Latest Gift Amount - Countable Recognition Credits Smart Field\Currency ID]
-    ,R.[ID] as [QUERYRECID]
-from V_QUERY_PROSPECT as P 
+	,I.[ID] as [Constituent\Cumulative Giving - Recognition Credits Countable Revenue Smart Field\Currency ID]
+	,I.[ID] as [Constituent\Latest Gift Amount - Countable Recognition Credits Smart Field\Currency ID]
+    ,I.[ID] as [QUERYRECID]
+from V_QUERY_INTERACTIONALL as I
+inner join V_QUERY_PROSPECT as P on P.ID = I.CONSTITUENTID
 inner join V_QUERY_FUNDRAISER as F on P.PROSPECTMANAGERFUNDRAISERID = F.ID
 inner join EJ_CONSTITUENT_HISTORY as C on P.ID = C.CONSTITUENTID
-inner join V_QUERY_REGISTRANT as R on C.CONSTITUENTID = R.CONSTITUENTID
-inner join V_QUERY_EVENT as E on R.EVENTID = E.ID
+--inner join V_QUERY_REGISTRANT as R on C.CONSTITUENTID = R.CONSTITUENTID
+inner join V_QUERY_EVENT as E on I.EVENTID = E.ID
 left join (
                             select distinct
                                             ID,
@@ -71,6 +77,7 @@ left join (
                                 where Plans.ROWNUMBER = 1                    
                 ) PP on P.ID = PP.ProspectID
 left join V_QUERY_FUNDRAISER as PM on PP.PRIMARYMANAGERFUNDRAISERID = PM.ID
+left join V_QUERY_FUNDRAISER as O on I.OWNERID = O.ID
 left join [dbo].[V_QUERY_ATTRIBUTE14A7B597D42B4BF3B3A2964CD2E1A6BD] as [In-Person] on C.CONSTITUENTID = [In-Person].[PARENTID] and [In-Person].VALUEID = 'EFAE4213-699E-4E19-B239-2D2AFCFC802A' 
 left join [dbo].[V_QUERY_ATTRIBUTE14A7B597D42B4BF3B3A2964CD2E1A6BD] as [Travel] on C.CONSTITUENTID = [Travel].[PARENTID] and [Travel].VALUEID = '0DF29FB3-37D8-48A1-B269-4D22F99BFEDC'
 left join [dbo].[V_QUERY_ATTRIBUTE14A7B597D42B4BF3B3A2964CD2E1A6BD] as [Host] on C.CONSTITUENTID = [Host].[PARENTID] and [Host].VALUEID = '7BE1FED8-88F7-419D-BB1C-9F362B2A452B'
