@@ -17,11 +17,10 @@ with
 [ROOT_CTE] as (
 select E.Name as [Event]
     ,C.NAME as [Name]
-	,I.Objective as [Title]
-	,I.EXPECTEDDATE as [Expected invitation date]
-	,I.[CONTACTMETHOD] as [Contact method]
-	,I.STATUS as [Status]
-	,O.NAME as [Owner]
+	--,I.Objective as [Title]
+	--,I.EXPECTEDDATE as [Expected invitation date]
+	--,I.[CONTACTMETHOD] as [Contact method]
+	--,I.STATUS as [Status]
 	--,R.[TYPE] as [Type]
 	--,R.[STATUS] as [Status]
 	--,R.[HOSTNAME] as [Host]
@@ -36,14 +35,15 @@ select E.Name as [Event]
 	,C.LASTGIFT_DATE as [Latest gift date]
 	,C.LASTGIFT_AMOUNT as [Latest gift amount]
 	,C.LATEST_INTERACTION as [Latest interaction]
-	,F.Name as [Prospect manager]
+	,O.NAME as [Invitation owner]
+	--,F.Name as [Prospect manager]
 	,PM.Name as [Primary manager]
 	,Steps.[Next Step Date] as [Next interaction date]
 	,PRIOR_EVENT.Name as [Last event attended]
 	,I.ID as [Interaction ID]
 	,C.CONSTITUENTID as [Constituent ID]
 	,E.ID as [Event ID]
-	,Registration.ID as [Registration ID]
+	--,Registration.ID as [Registration ID]
     ,F.ID as [Prospect Manager ID]
 	,I.[ID] as [Constituent\Cumulative Giving - Recognition Credits Countable Revenue Smart Field\Currency ID]
 	,I.[ID] as [Constituent\Latest Gift Amount - Countable Recognition Credits Smart Field\Currency ID]
@@ -142,13 +142,14 @@ select top(@MAXROWS) [Event],
 	[Latest gift date],
 	[Latest gift amount],
 	[Latest interaction],
+	[Invitation owner],
 	[Primary manager],
 	[Next interaction date],
 	[Last event attended],
-	[Registrant ID],
+	[Interaction ID],
 	[Constituent ID],
 	[Event ID],
-	[Registration ID],
+	--[Registration ID],
 	[Prospect Manager ID],
 	[Constituent\Cumulative Giving - Recognition Credits Countable Revenue Smart Field\Currency ID],
 	[Constituent\Latest Gift Amount - Countable Recognition Credits Smart Field\Currency ID]
