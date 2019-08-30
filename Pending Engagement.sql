@@ -33,10 +33,10 @@ LASTGIFTINFO.EFFECTIVEDATE as [Latest One-Time Gift Date],
 LASTGIFTINFO.AMOUNT as [Latest One-Time Gift Amount],
 C.[LargestGift_Date] as [Largest Gift Date],
 C.[LargestGift_Amount] as [Largest Gift Amount],
-MRR.STARTDATE as [Most Recent Research],
-FiveYear.Value as [Five Year Gift Capacity],
-EW.Value as [Estimated Wealth],
-cast(MAJORGIVINGCAPACITYVALUE as money) as [Major Giving Capacity],
+--MRR.STARTDATE as [Most Recent Research],
+EJ_FIVE_YEAR_CAPACITY as [Five Year Gift Capacity],
+EJ_EST_WEALTH as [Estimated Wealth],
+--cast(MAJORGIVINGCAPACITYVALUE as money) as [Major Giving Capacity],
 Moves.ActualDATE as [Last Move Date],
 Moves.Objective as [Last Move Objective],
 NonMoveInteractions.ActualDATE as [Last Interaction Date],
@@ -61,10 +61,10 @@ left outer join EJ_CONSTITUENT_HISTORY as C on C.CONSTITUENTID = P.ID
 --left outer join [dbo].[V_QUERY_SMARTFIELDDDA1E5EFF1EA421C9026250DE0B188F8] as [Latest Gift Date] on P.ID = [Latest Gift Date].[ID]
 --left outer join [dbo].[V_QUERY_SMARTFIELD7FFF88280FA64054A1D681356924335D] as [Latest Gift Amount] on P.ID = [Latest Gift Amount].[ID]
 --left outer join [dbo].[V_QUERY_MODELINGANDPROPENSITY_SIMPLE] as Modeling on P.ID = Modeling.ID
-left outer join [dbo].[V_QUERY_ATTRIBUTEDCEFF2E9FDAB4674901120B7D8F75872] as FiveYear on P.ID = FiveYear.ID
-left outer join [dbo].[V_QUERY_ATTRIBUTED6169246286E4F48936E75C15FFCF562] as EW on P.ID = EW.ID
-left outer join [dbo].[V_QUERY_ATTRIBUTE6920A0A601734A38A098EE001E5D02F0] as MRR on P.ID = MRR.ID
-left outer join [dbo].[V_QUERY_WEALTHCAPACITY] as W on P.ID = W.ID
+--left outer join [dbo].[V_QUERY_ATTRIBUTEDCEFF2E9FDAB4674901120B7D8F75872] as FiveYear on P.ID = FiveYear.ID
+--left outer join [dbo].[V_QUERY_ATTRIBUTED6169246286E4F48936E75C15FFCF562] as EW on P.ID = EW.ID
+--left outer join [dbo].[V_QUERY_ATTRIBUTE6920A0A601734A38A098EE001E5D02F0] as MRR on P.ID = MRR.ID
+--left outer join [dbo].[V_QUERY_WEALTHCAPACITY] as W on P.ID = W.ID
 left outer join (
                             
                             select distinct
@@ -130,7 +130,7 @@ left outer join (
                                   ) Plans
                                 where Plans.ROWNUMBER = 1                    
                 ) ProspectPlan on Prospectplan.ProspectID = P.ID
-
+				
 left outer join (
                             select distinct
                                             MoveInteractions.PROSPECTPLANID,
@@ -152,7 +152,7 @@ left outer join (
                                             ROW_NUMBER() OVER (PARTITION BY MI.ConstituentID
                                                              ORDER BY MI.actualdate desc) AS ROWNUMBER
 
-                                        from  V_QUERY_INTERACTIONALL as MI
+                                        from  INTERACTION as MI
                                         where MI.ACTUALDATE < getdate()
 										and MI.PROSPECTPLANID is not null
                                   ) MoveInteractions
@@ -180,13 +180,13 @@ left outer join (
                                             ROW_NUMBER() OVER (PARTITION BY I.ConstituentID
                                                              ORDER BY I.actualdate desc) AS ROWNUMBER
 
-                                        from  V_QUERY_INTERACTIONALL as I
+                                        from  INTERACTION as I
                                         where I.ACTUALDATE < getdate()
 										and I.PROSPECTPLANID is null
                                   ) Interactions
                                 where Interactions.ROWNUMBER = 1         
                 ) NonMoveInteractions on NonMoveInteractions.ConstituentID = P.ID
-
+				
 left outer join [dbo].[V_QUERY_FUNDRAISER] as F on ProspectHistory.FundraiserID = F.ID
 left outer join (
 		select OrgPositions.CONSTITUENTID as [CONSTITUENTID],
@@ -238,7 +238,7 @@ LEFT OUTER JOIN (
 			[I].Objective [AssessmentSummary],
 			[I].Comment [AssessmentComment],
 			ROW_NUMBER() OVER (PARTITION BY I.CONSTITUENTID ORDER BY I.CONSTITUENTID,I.DATE desc) AS ROWNUMBER
-			FROM V_QUERY_INTERACTIONALL I 
+			FROM INTERACTION I 
 			WHERE [I].INTERACTIONSUBCATEGORYID = 'b1a4a661-42b6-4947-9ca7-0bee2b62d8ab' --Prospect Assessment
 				AND [I].STATUS = 'Completed'
 			) Y
@@ -268,7 +268,7 @@ select top(@MAXROWS) [Lookup ID],
 	[Latest One-Time Gift Amount],
 	[Largest Gift Date],
 	[Largest Gift Amount],
-	[Most Recent Research],
+	--[Most Recent Research],
 	[Five Year Gift Capacity],
 	[Estimated Wealth],
 	[Major Giving Capacity],
