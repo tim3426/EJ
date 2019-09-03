@@ -37,74 +37,77 @@ select E.Name as [Event]
 	,C.LATEST_INTERACTION as [Latest interaction]
 	,O.NAME as [Invitation owner]
 	--,F.Name as [Prospect manager]
-	,PM.Name as [Primary manager]
+	,PrimaryManager.Name as [Primary manager]
 	,Steps.[Next Step Date] as [Next interaction date]
 	,PRIOR_EVENT.Name as [Last event attended]
 	,I.ID as [Interaction ID]
 	,C.CONSTITUENTID as [Constituent ID]
 	,E.ID as [Event ID]
 	--,Registration.ID as [Registration ID]
-    ,F.ID as [Prospect Manager ID]
+    ,PM.ID as [Prospect Manager ID]
 	,I.[ID] as [Constituent\Cumulative Giving - Recognition Credits Countable Revenue Smart Field\Currency ID]
 	,I.[ID] as [Constituent\Latest Gift Amount - Countable Recognition Credits Smart Field\Currency ID]
     ,I.[ID] as [QUERYRECID]
 from V_QUERY_INTERACTIONALL as I
-inner join V_QUERY_PROSPECT as P on P.ID = I.CONSTITUENTID
-inner join V_QUERY_FUNDRAISER as F on P.PROSPECTMANAGERFUNDRAISERID = F.ID
-inner join EJ_CONSTITUENT_HISTORY as C on P.ID = C.CONSTITUENTID
+left join V_QUERY_FUNDRAISER as O on I.OWNERID = O.ID
+inner join V_QUERY_PROSPECT as P on I.CONSTITUENTID = P.ID
+inner join V_QUERY_FUNDRAISER as PM on P.PROSPECTMANAGERFUNDRAISERID = PM.ID
+inner join EJ_CONSTITUENT_HISTORY as C on I.CONSTITUENTID = C.CONSTITUENTID
 --inner join V_QUERY_REGISTRANT as R on C.CONSTITUENTID = R.CONSTITUENTID
 inner join V_QUERY_EVENT as E on I.EVENTID = E.ID
 left join (
-                            select distinct
-                                            ID,
-											StartDate,
-											ProspectID,
-                                            Historical,
-                                            PRIMARYMANAGERFUNDRAISERID
-                                from      
-                                 (
-                                        select distinct
-											ID,
-											StartDate,
-											ProspectID,
-                                            Historical,
-                                            PRIMARYMANAGERFUNDRAISERID,
-                                            ROW_NUMBER() OVER (PARTITION BY ProspectID
-                                                             ORDER BY StartDate desc) AS ROWNUMBER
+		select distinct
+						ID,
+						StartDate,
+						ProspectID,
+						Historical,
+						PRIMARYMANAGERFUNDRAISERID
+			from      
+				(
+					select distinct
+						ID,
+						StartDate,
+						ProspectID,
+						Historical,
+						PRIMARYMANAGERFUNDRAISERID,
+						ROW_NUMBER() OVER (PARTITION BY ProspectID
+											ORDER BY StartDate desc) AS ROWNUMBER
 
-                                        from  V_QUERY_PROSPECTPLAN
-                                  ) Plans
-                                where Plans.ROWNUMBER = 1                    
-                ) PP on P.ID = PP.ProspectID
-left join V_QUERY_FUNDRAISER as PM on PP.PRIMARYMANAGERFUNDRAISERID = PM.ID
-left join V_QUERY_FUNDRAISER as O on I.OWNERID = O.ID
-left join [dbo].[V_QUERY_ATTRIBUTE14A7B597D42B4BF3B3A2964CD2E1A6BD] as [In-Person] on C.CONSTITUENTID = [In-Person].[PARENTID] and [In-Person].VALUEID = 'EFAE4213-699E-4E19-B239-2D2AFCFC802A' 
-left join [dbo].[V_QUERY_ATTRIBUTE14A7B597D42B4BF3B3A2964CD2E1A6BD] as [Travel] on C.CONSTITUENTID = [Travel].[PARENTID] and [Travel].VALUEID = '0DF29FB3-37D8-48A1-B269-4D22F99BFEDC'
-left join [dbo].[V_QUERY_ATTRIBUTE14A7B597D42B4BF3B3A2964CD2E1A6BD] as [Host] on C.CONSTITUENTID = [Host].[PARENTID] and [Host].VALUEID = '7BE1FED8-88F7-419D-BB1C-9F362B2A452B'
+					from  V_QUERY_PROSPECTPLAN
+				) Plans
+			where Plans.ROWNUMBER = 1                    
+	) PP on P.ID = PP.ProspectID
+left join V_QUERY_FUNDRAISER as PrimaryManager on PP.PRIMARYMANAGERFUNDRAISERID = PrimaryManager.ID
 left join USR_V_QUERY_PROSPECTPLANSTEPS as Steps on PP.ID = Steps.ID
+left join [dbo].[V_QUERY_ATTRIBUTE14A7B597D42B4BF3B3A2964CD2E1A6BD] as [In-Person] on C.CONSTITUENTID = [In-Person].[PARENTID] 
+	and [In-Person].VALUEID = 'EFAE4213-699E-4E19-B239-2D2AFCFC802A' 
+left join [dbo].[V_QUERY_ATTRIBUTE14A7B597D42B4BF3B3A2964CD2E1A6BD] as [Travel] on C.CONSTITUENTID = [Travel].[PARENTID] 
+	and [Travel].VALUEID = '0DF29FB3-37D8-48A1-B269-4D22F99BFEDC'
+left join [dbo].[V_QUERY_ATTRIBUTE14A7B597D42B4BF3B3A2964CD2E1A6BD] as [Host] on C.CONSTITUENTID = [Host].[PARENTID] 
+	and [Host].VALUEID = '7BE1FED8-88F7-419D-BB1C-9F362B2A452B'
 left join (
-                            select distinct
-                                    PREVIOUS_EVENTDATE.CONSTITUENTID,
-                                    PREVIOUS_EVENTDATE.STARTDATE STARTDATE,
-                                    PREVIOUS_EVENTDATE.NAME NAME,
-                                    PREVIOUS_EVENTDATE.ID EVENTID
-                                from      
-                                 (
-                                        select distinct
-                                            REGISTRANT.CONSTITUENTID CONSTITUENTID,
-                                            EVENT.STARTDATE STARTDATE,
-                                            EVENT.NAME,
-                                            EVENT.ID,
-                                            ROW_NUMBER() OVER (PARTITION BY REGISTRANT.CONSTITUENTID
-                                                             ORDER BY EVENT.STARTDATE desc) AS ROWNUMBER
+		select distinct
+				PREVIOUS_EVENTDATE.CONSTITUENTID,
+				PREVIOUS_EVENTDATE.STARTDATE STARTDATE,
+				PREVIOUS_EVENTDATE.NAME NAME,
+				PREVIOUS_EVENTDATE.ID EVENTID
+			from      
+				(
+					select distinct
+						REGISTRANT.CONSTITUENTID CONSTITUENTID,
+						EVENT.STARTDATE STARTDATE,
+						EVENT.NAME,
+						EVENT.ID,
+						ROW_NUMBER() OVER (PARTITION BY REGISTRANT.CONSTITUENTID
+											ORDER BY EVENT.STARTDATE desc) AS ROWNUMBER
 
-                                        from  [dbo].[V_QUERY_CONSTITUENTREGISTRANT] as REGISTRANT
-                                        left outer join [dbo].[V_QUERY_EVENT] as EVENT on REGISTRANT.[EVENTID] = EVENT.ID and REGISTRANT.ATTENDED = 1
-                                        where EVENT.STARTDATE < getDate()
-                                    ) PREVIOUS_EVENTDATE
-                                where PREVIOUS_EVENTDATE.ROWNUMBER = 1                    
-                ) PRIOR_EVENT on PRIOR_EVENT.CONSTITUENTID = C.CONSTITUENTID
-
+					from  [dbo].[V_QUERY_CONSTITUENTREGISTRANT] as REGISTRANT
+					left outer join [dbo].[V_QUERY_EVENT] as EVENT on REGISTRANT.[EVENTID] = EVENT.ID 
+						and REGISTRANT.ATTENDED = 1
+					where EVENT.STARTDATE < getDate()
+				) PREVIOUS_EVENTDATE
+			where PREVIOUS_EVENTDATE.ROWNUMBER = 1                    
+	) PRIOR_EVENT on PRIOR_EVENT.CONSTITUENTID = C.CONSTITUENTID
 --left outer join [dbo].[V_QUERY_CONSTITUENT] as [V_QUERY_REGISTRANT\Constituent] on R.[CONSTITUENTID] = [V_QUERY_REGISTRANT\Constituent].[ID]
 --left outer join [dbo].[V_QUERY_WEALTHCAPACITY] as [V_QUERY_REGISTRANT\Constituent\Wealth Capacity] on [V_QUERY_REGISTRANT\Constituent].[ID] = [V_QUERY_REGISTRANT\Constituent\Wealth Capacity].[ID]
 --left outer join [dbo].[V_QUERY_SMARTFIELD690985E49E094135A562B7A16B1664A1] as [V_QUERY_REGISTRANT\Constituent\Cumulative Giving - Recognition Credits Countable Revenue Smart Field] on [V_QUERY_REGISTRANT\Constituent].[ID] = [V_QUERY_REGISTRANT\Constituent\Cumulative Giving - Recognition Credits Countable Revenue Smart Field].[ID]
@@ -117,7 +120,7 @@ left join (
 --left outer join [dbo].[V_QUERY_CONSTITUENT] as [V_QUERY_REGISTRANT\Constituent\Prospect\Prospect Plans\Primary Manager] on [V_QUERY_REGISTRANT\Constituent\Prospect\Prospect Plans].[PRIMARYMANAGERFUNDRAISERID] = [V_QUERY_REGISTRANT\Constituent\Prospect\Prospect Plans\Primary Manager].[ID]
 --left outer join [dbo].[V_QUERY_EVENT] as [V_QUERY_REGISTRANT\Constituent\Registrant\Event] on [V_QUERY_REGISTRANT\Constituent\Registrant].[EVENTID] = [V_QUERY_REGISTRANT\Constituent\Registrant\Event].[ID]
 --left outer join [dbo].[V_QUERY_EVENT] as [V_QUERY_REGISTRANT\Event] on R.[EVENTID] = [V_QUERY_REGISTRANT\Event].[ID]
-left outer join V_QUERY_REGISTRANTREGISTRATION as Registration on P.ID = Registration.REGISTRANTID
+--left outer join V_QUERY_REGISTRANTREGISTRATION as Registration on P.ID = Registration.REGISTRANTID
 where P.PROSPECTSTATUSCODEID in (N'49899170-d5be-448f-9fbb-45965ec0696f'
     , N'3fbc0a51-43af-4c07-9390-40f80d5bd897'
     , N'd41eed7a-4b69-4c3d-ae90-b6c012a876e9'
