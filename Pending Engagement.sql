@@ -16,6 +16,7 @@ set nocount on;
 set @TEAM = dbo.UFN_SEARCHCRITERIA_GETLIKEPARAMETERVALUE2(@TEAM, 0, null, 0);
 with
 [ROOT_CTE] as (
+
 select 
 LOOKUPID as [Lookup ID],
 C.Name,
@@ -36,7 +37,7 @@ C.[LargestGift_Amount] as [Largest Gift Amount],
 --MRR.STARTDATE as [Most Recent Research],
 EJ_FIVE_YEAR_CAPACITY as [Five Year Gift Capacity],
 EJ_EST_WEALTH as [Estimated Wealth],
---cast(MAJORGIVINGCAPACITYVALUE as money) as [Major Giving Capacity],
+cast(MAJORGIVINGCAPACITYVALUE as money) as [Major Giving Capacity],
 Moves.ActualDATE as [Last Move Date],
 Moves.Objective as [Last Move Objective],
 NonMoveInteractions.ActualDATE as [Last Interaction Date],
@@ -64,7 +65,7 @@ left outer join EJ_CONSTITUENT_HISTORY as C on C.CONSTITUENTID = P.ID
 --left outer join [dbo].[V_QUERY_ATTRIBUTEDCEFF2E9FDAB4674901120B7D8F75872] as FiveYear on P.ID = FiveYear.ID
 --left outer join [dbo].[V_QUERY_ATTRIBUTED6169246286E4F48936E75C15FFCF562] as EW on P.ID = EW.ID
 --left outer join [dbo].[V_QUERY_ATTRIBUTE6920A0A601734A38A098EE001E5D02F0] as MRR on P.ID = MRR.ID
---left outer join [dbo].[V_QUERY_WEALTHCAPACITY] as W on P.ID = W.ID
+left outer join [dbo].[V_QUERY_WEALTHCAPACITY] as W on P.ID = W.ID
 left outer join (
                             
                             select distinct
@@ -249,6 +250,7 @@ LEFT OUTER JOIN (
 where P.PROSPECTSTATUSCODEID = 'b18c5050-0f21-464d-be41-a1c97c25f698' --Pending Engagement
 and ([ProspectAssessment].[AssessmentDate] < dateadd(year,-1,getdate())
 or [ProspectAssessment].[AssessmentDate] is null)
+
 )
 
 
