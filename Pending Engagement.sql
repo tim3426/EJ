@@ -49,12 +49,13 @@ Team.Businessunit as [Team],
 [ProspectAssessment].[AssessmentSummary] as [Summary],
 [ProspectAssessment].[AssessmentComment] as [Comment],
 P.ID,
-[LARGESTGIFT_REVENUEID] as [FY2016 Giving - Recognition Credits Countable Revenue No PG Smart Field\Currency ID],
-[LARGESTGIFT_REVENUEID] as [FY2015 Giving - Recognition Credits Countable Revenue No PG Smart Field\Currency ID],
-[LARGESTGIFT_REVENUEID] as [FY2014 Giving - Recognition Credits Countable Revenue No PG Smart Field\Currency ID],
-[LARGESTGIFT_REVENUEID] as [Latest Gift Amount - Countable Recognition Credits Smart Field\Currency ID],
-[LARGESTGIFT_REVENUEID] as [Latest Recurring Gift Amount Smart Field\Currency ID],
-[LARGESTGIFT_REVENUEID] as [Largest Gift Amount - Countable Recognition Credits Smart Field\Currency ID]
+P.ID as [FY2016 Giving - Recognition Credits Countable Revenue No PG Smart Field\Currency ID],
+P.ID as [FY2015 Giving - Recognition Credits Countable Revenue No PG Smart Field\Currency ID],
+P.ID as [FY2014 Giving - Recognition Credits Countable Revenue No PG Smart Field\Currency ID],
+P.ID as [Latest Gift Amount - Countable Recognition Credits Smart Field\Currency ID],
+P.ID as [Latest Recurring Gift Amount Smart Field\Currency ID],
+P.ID as [Largest Gift Amount - Countable Recognition Credits Smart Field\Currency ID],
+P.ID as [Revenue\Base currency ID]
 from PROSPECT as P
 left outer join EJ_CONSTITUENT_HISTORY as C on C.CONSTITUENTID = P.ID
 --left outer join [dbo].[V_QUERY_SMARTFIELDEDBD0A975F3B424DB03334DD393DD70B] as [Largest Gift Date] on P.ID = [Largest Gift Date].[ID]
