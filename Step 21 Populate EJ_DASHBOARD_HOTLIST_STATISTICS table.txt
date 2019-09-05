@@ -1,0 +1,377 @@
+USE EJDEVO;
+
+delete from EJ_DASHBOARD_HOTLIST_STATISTICS;
+
+SET QUOTED_IDENTIFIER ON
+
+INSERT INTO [EJ_DASHBOARD_HOTLIST_STATISTICS] ([YEAR], [AVG_QUALIFYING_AMOUNT], [ADDED_TO_PLAN], [NOT_ADDED_TO_PLAN], [TIME_TO_PLAN], [FIRSTMOVE_MADE], [NO_FIRSTMOVE_MADE],
+												[TIME_TO_MOVE], [FIRSTSOLMOVE_MADE], [NO_FIRSTSOLMOVE_MADE], [TIME_TO_SOLICITATION], [AVG_POST_PLAN_AMOUNT], [AVG_POST_SOL_AMOUNT], [AVG_MAX_POST_AMOUNT])
+	SELECT [YEAR], [AVG_QUALIFYING_AMOUNT], [ADDED_TO_PLAN], [NOT_ADDED_TO_PLAN], [TIME_TO_PLAN], [FIRSTMOVE_MADE], [NO_FIRSTMOVE_MADE],
+		   [TIME_TO_MOVE], [FIRSTSOLMOVE_MADE], [NO_FIRSTSOLMOVE_MADE], [TIME_TO_SOLICITATION], [AVG_POST_PLAN_AMOUNT], [AVG_POST_SOL_AMOUNT], [AVG_MAX_POST_AMOUNT]
+	FROM 
+
+	(
+
+select
+	convert(varchar(40), case when month([Y].[HOTLIST_DATE]) > 6 then year([Y].[HOTLIST_DATE])+1 else year([Y].[HOTLIST_DATE]) end) [YEAR],
+	avg(case when coalesce([Y].[QUALIFYING_AMOUNT],0) > 0 then [Y].[QUALIFYING_AMOUNT] end) [AVG_QUALIFYING_AMOUNT],
+	count(distinct case when [FIRSTPLAN_STARTDATE] is not null then [Y].[CONSTITUENTID] else null end) [ADDED_TO_PLAN],
+	count(distinct case when [FIRSTPLAN_STARTDATE] is null then [Y].[CONSTITUENTID] else null end) [NOT_ADDED_TO_PLAN],
+	avg(dateDiff(month, [Y].[HOTLIST_DATE], [Y].[FIRSTPLAN_STARTDATE])) [TIME_TO_PLAN],
+	count(distinct case when [FIRSTMOVE_DATE] is not null then [Y].[CONSTITUENTID] else null end) [FIRSTMOVE_MADE],
+	count(distinct case when [FIRSTMOVE_DATE] is null then [Y].[CONSTITUENTID] else null end) [NO_FIRSTMOVE_MADE],
+	avg(dateDiff(month, [Y].[HOTLIST_DATE], [Y].[FIRSTMOVE_DATE])) [TIME_TO_MOVE],
+	count(distinct case when [FIRST_SOLDATE] is not null then [Y].[CONSTITUENTID] else null end) [FIRSTSOLMOVE_MADE],
+	count(distinct case when [FIRST_SOLDATE] is null then [Y].[CONSTITUENTID] else null end) [NO_FIRSTSOLMOVE_MADE],
+	avg(dateDiff(month, [Y].[HOTLIST_DATE], [Y].[FIRST_SOLDATE])) [TIME_TO_SOLICITATION],
+	avg(case when coalesce([Y].[POST_PLAN_AMOUNT],0) > 0 then [Y].[POST_PLAN_AMOUNT] end) [AVG_POST_PLAN_AMOUNT],
+	avg(case when coalesce([Y].[POST_SOL_AMOUNT],0) > 0 then [Y].[POST_SOL_AMOUNT] end) [AVG_POST_SOL_AMOUNT],
+	avg(case when coalesce([Y].[MAX_POST_AMOUNT],0) > 0 then [Y].[MAX_POST_AMOUNT] end) [AVG_MAX_POST_AMOUNT]
+
+from
+(select  distinct
+	[C].[CONSTITUENTID] as [CONSTITUENTID],
+ 	[C].[NAME] as [NAME],
+	[C].[SORT_NAME] [SORT],
+	[FLAG].[VALUE] as [HOTLIST_FLAG],
+	[FLAG].[STARTDATE] as [HOTLIST_DATE],
+	[PLAN].[STARTDATE] as [FIRSTPLAN_STARTDATE],
+	[MOVE].[DATE] as [FIRSTMOVE_DATE],
+	[SOL].[DATE] as [FIRST_SOLDATE],
+	[PRIOR_REV_DATE].[DATE] as [QUALIFYING_DATE],
+	[PRIOR_REV_AMOUNT].[AMOUNT] as [QUALIFYING_AMOUNT],
+	[POST_PLAN_REV].[DATE] as [POST_PLAN_DATE],
+	[POST_PLAN_REV].[AMOUNT] as [POST_PLAN_AMOUNT],
+	[MAX_POST_REV_AMOUNT].[AMOUNT] as [MAX_POST_AMOUNT],
+	[POST_SOL_REV].[DATE] [POST_SOL_DATE],
+	[POST_SOL_REV].[AMOUNT] [POST_SOL_AMOUNT],
+	case when [HISTORICAL].[HISTORICAL] = 1 then 1 else 0 end [ACTIVEPLAN]
+from EJ_CONSTITUENT_HISTORY as [C]
+left outer join [dbo].[V_QUERY_MODELINGANDPROPENSITY_SIMPLE] as [MP] on [C].[CONSTITUENTID] = [MP].[ID]
+inner join [dbo].[V_QUERY_ATTRIBUTEDAC764DD502A407DADF53877EC76DEC4] as [FLAG] on [MP].[ID] = [FLAG].[ID]
+left outer join [dbo].[V_QUERY_PROSPECT] as [P] on [C].[CONSTITUENTID] = [P].[ID]
+left outer join ( -- Pull the first plan date after the hotlist flag
+				select
+					[PLAN].[PROSPECTID] [PROSPECTID],
+					min([PLAN].[STARTDATE]) [STARTDATE]
+				from [dbo].[V_QUERY_PROSPECTPLAN] [PLAN]
+				left outer join [dbo].[V_QUERY_MODELINGANDPROPENSITY_SIMPLE] as [MP] on [PLAN].[PROSPECTID] = [MP].[ID]
+				inner join [dbo].[V_QUERY_ATTRIBUTEDAC764DD502A407DADF53877EC76DEC4] as [FLAG] on [MP].[ID] = [FLAG].[ID]
+				where [PLAN].[STARTDATE] > [FLAG].[STARTDATE]
+					and [FLAG].[VALUEID] in (N'fab7cc73-80f8-42b6-9adf-195b1578b2d1', N'33fba3bd-c3ad-4c97-8674-22af676f7303', N'491d72fc-3a51-4e6c-a1d0-95dd74e71a46', N'759ac62c-aade-4dd6-9a63-091e093d595a', N'efe9ca79-4abf-4ed6-8bfd-c9c7767fb420')
+				group by [PLAN].[PROSPECTID]
+				) [PLAN] on [C].[CONSTITUENTID] = [PLAN].[PROSPECTID]
+left outer join ( --Pull the fist move made after the hotlist flag
+				select
+					[PLAN].[PROSPECTID] [PROSPECTID],
+					min([MOVE].[ACTUALDATE]) [DATE]
+				from [dbo].[V_QUERY_PROSPECTPLAN] [PLAN]
+				left outer join [dbo].[V_QUERY_STEP] as [MOVE] on [PLAN].[ID] = [MOVE].[PROSPECTPLANID]
+				left outer join [dbo].[V_QUERY_MODELINGANDPROPENSITY_SIMPLE] as [MP] on [PLAN].[PROSPECTID] = [MP].[ID]
+				inner join [dbo].[V_QUERY_ATTRIBUTEDAC764DD502A407DADF53877EC76DEC4] as [FLAG] on [MP].[ID] = [FLAG].[ID]
+				where [PLAN].[STARTDATE] > [FLAG].[STARTDATE]
+					and [MOVE].[STATUS] = N'Completed'
+					and [FLAG].[VALUEID] in (N'fab7cc73-80f8-42b6-9adf-195b1578b2d1', N'33fba3bd-c3ad-4c97-8674-22af676f7303', N'491d72fc-3a51-4e6c-a1d0-95dd74e71a46', N'759ac62c-aade-4dd6-9a63-091e093d595a', N'efe9ca79-4abf-4ed6-8bfd-c9c7767fb420')
+				group by [PLAN].[PROSPECTID]
+				) [MOVE] on [MOVE].[PROSPECTID] = [C].[CONSTITUENTID]
+left outer join ( --Pull the first solicitation move made after the hotlist flag
+				select
+					[PLAN].[PROSPECTID] [PROSPECTID],
+					min([MOVE].[ACTUALDATE]) [DATE]
+				from [dbo].[V_QUERY_PROSPECTPLAN] [PLAN]
+				left outer join [dbo].[V_QUERY_STEP] as [MOVE] on [PLAN].[ID] = [MOVE].[PROSPECTPLANID]
+				left outer join [dbo].[V_QUERY_MODELINGANDPROPENSITY_SIMPLE] as [MP] on [PLAN].[PROSPECTID] = [MP].[ID]
+				inner join [dbo].[V_QUERY_ATTRIBUTEDAC764DD502A407DADF53877EC76DEC4] as [FLAG] on [MP].[ID] = [FLAG].[ID]
+				where [PLAN].[STARTDATE] > [FLAG].[STARTDATE]
+					and [FLAG].[VALUEID] in (N'fab7cc73-80f8-42b6-9adf-195b1578b2d1', N'33fba3bd-c3ad-4c97-8674-22af676f7303', N'491d72fc-3a51-4e6c-a1d0-95dd74e71a46', N'759ac62c-aade-4dd6-9a63-091e093d595a', N'efe9ca79-4abf-4ed6-8bfd-c9c7767fb420')
+					and [MOVE].[STAGE] = 'Solicitation'
+					and [MOVE].[STATUS] = N'Completed'
+				group by [PLAN].[PROSPECTID]
+				) [SOL] on [SOL].[PROSPECTID] = [C].[CONSTITUENTID]
+left outer join ( --Pull the date for the qualifying revenue that indicated a hotlist prospect
+				select distinct
+					[R].[CONSTITUENTID] [CONSTITUENTID],
+					max([R].[EFFECTIVEDATE]) [DATE]
+				from [EJ_REVENUE_RECOGNITION] [R]
+				left outer join [dbo].[V_QUERY_MODELINGANDPROPENSITY_SIMPLE] as [MP] on [R].[CONSTITUENTID] = [MP].[ID]
+				inner join [dbo].[V_QUERY_ATTRIBUTEDAC764DD502A407DADF53877EC76DEC4] as [FLAG] on [MP].[ID] = [FLAG].[ID]
+				where [R].[EFFECTIVEDATE] < [FLAG].[STARTDATE]
+					and [FLAG].[VALUEID] in (N'fab7cc73-80f8-42b6-9adf-195b1578b2d1', N'33fba3bd-c3ad-4c97-8674-22af676f7303', N'491d72fc-3a51-4e6c-a1d0-95dd74e71a46', N'759ac62c-aade-4dd6-9a63-091e093d595a', N'efe9ca79-4abf-4ed6-8bfd-c9c7767fb420')
+				group by
+					[R].[CONSTITUENTID]
+				) [PRIOR_REV_DATE] on [C].[CONSTITUENTID] = [PRIOR_REV_DATE].[CONSTITUENTID]
+left outer join ( --Pull the associated revenue for the qualifying revenue that indicated a hotlist prospect
+				select distinct
+					[R].[CONSTITUENTID] [CONSTITUENTID],
+					[R].[EFFECTIVEDATE] [DATE],
+					sum([R].[AMOUNT]) [AMOUNT]
+				from [EJ_REVENUE_RECOGNITION] [R]
+				left outer join [dbo].[V_QUERY_MODELINGANDPROPENSITY_SIMPLE] as [MP] on [R].[CONSTITUENTID] = [MP].[ID]
+				inner join [dbo].[V_QUERY_ATTRIBUTEDAC764DD502A407DADF53877EC76DEC4] as [FLAG] on [MP].[ID] = [FLAG].[ID]
+				where [R].[EFFECTIVEDATE] < [FLAG].[STARTDATE]
+					and [FLAG].[VALUEID] in (N'fab7cc73-80f8-42b6-9adf-195b1578b2d1', N'33fba3bd-c3ad-4c97-8674-22af676f7303', N'491d72fc-3a51-4e6c-a1d0-95dd74e71a46', N'759ac62c-aade-4dd6-9a63-091e093d595a', N'efe9ca79-4abf-4ed6-8bfd-c9c7767fb420')
+				group by
+					[R].[CONSTITUENTID],
+					[R].[EFFECTIVEDATE]
+				) [PRIOR_REV_AMOUNT] on [C].[CONSTITUENTID] = [PRIOR_REV_AMOUNT].[CONSTITUENTID]
+										and [PRIOR_REV_DATE].[DATE] = [PRIOR_REV_AMOUNT].[DATE]
+left outer join ( --Pull the first revenue details for the first gift after being assigned to a prospect plan 	
+				select 
+					[Z].[CONSTITUENTID] [CONSTITUENTID],
+					[Z].[DATE] [DATE],
+					sum([R].[AMOUNT]) [AMOUNT]
+				from
+					(
+					select
+						[R].[CONSTITUENTID] [CONSTITUENTID],
+						min([R].[EFFECTIVEDATE]) [DATE]
+					from [EJ_REVENUE_RECOGNITION] [R]
+					left outer join [dbo].[V_QUERY_MODELINGANDPROPENSITY_SIMPLE] as [MP] on [R].[CONSTITUENTID] = [MP].[ID]
+					inner join [dbo].[V_QUERY_ATTRIBUTEDAC764DD502A407DADF53877EC76DEC4] as [FLAG] on [MP].[ID] = [FLAG].[ID]
+					where [R].[EFFECTIVEDATE] > [FLAG].[STARTDATE]
+					group by [R].[CONSTITUENTID]
+					) [Z]
+				left outer join [EJ_REVENUE_RECOGNITION] [R] on [Z].[CONSTITUENTID] = [R].[CONSTITUENTID]
+				where [R].[EFFECTIVEDATE] = [Z].[DATE]
+				group by 
+					[Z].[CONSTITUENTID],
+					[Z].[DATE]
+			) [POST_PLAN_REV] on [C].[CONSTITUENTID] = [POST_PLAN_REV].[CONSTITUENTID]				
+left outer join ( --Pull the first revenue details for the first gift after the first solicitation move after assignment to a prospect plan	
+				select distinct
+					[Z].[CONSTITUENTID] [CONSTITUENTID],
+					[Z].[DATE] [DATE],
+					sum([R].[AMOUNT]) [AMOUNT]
+				from
+					(
+					select
+						[R].[CONSTITUENTID] [CONSTITUENTID],
+						min([R].[EFFECTIVEDATE]) [DATE]
+					from [EJ_REVENUE_RECOGNITION] [R]
+					left outer join [dbo].[V_QUERY_MODELINGANDPROPENSITY_SIMPLE] as [MP] on [R].[CONSTITUENTID] = [MP].[ID]
+					inner join [dbo].[V_QUERY_ATTRIBUTEDAC764DD502A407DADF53877EC76DEC4] as [FLAG] on [MP].[ID] = [FLAG].[ID]
+					left outer join [V_QUERY_PROSPECTPLAN] [PLAN] on [R].[CONSTITUENTID] = [PLAN].[PROSPECTID]
+					left outer join [dbo].[V_QUERY_STEP] as [MOVE] on [PLAN].[ID] = [MOVE].[PROSPECTPLANID]
+					where [R].[EFFECTIVEDATE] > [FLAG].[STARTDATE]
+						and [R].[EFFECTIVEDATE] > [MOVE].[ACTUALDATE]
+						and [MOVE].[STAGE] = 'Solicitation'
+						and [MOVE].[STATUS] = N'Completed'
+					group by [R].[CONSTITUENTID]
+					) [Z]
+				left outer join [EJ_REVENUE_RECOGNITION] [R] on [Z].[CONSTITUENTID] = [R].[CONSTITUENTID]
+				where [R].[EFFECTIVEDATE] = [Z].[DATE]
+				group by 
+					[Z].[CONSTITUENTID],
+					[Z].[DATE]
+			) [POST_SOL_REV] on [C].[CONSTITUENTID] = [POST_SOL_REV].[CONSTITUENTID]	
+left outer join ( --Pull the highest single gift amount after being identified as a hotlist prospect
+				select distinct
+					[R].[CONSTITUENTID] [CONSTITUENTID],
+					max([R].[AMOUNT]) [AMOUNT]
+				from [EJ_REVENUE_RECOGNITION] [R]
+				left outer join [dbo].[V_QUERY_MODELINGANDPROPENSITY_SIMPLE] as [MP] on [R].[CONSTITUENTID] = [MP].[ID]
+				inner join [dbo].[V_QUERY_ATTRIBUTEDAC764DD502A407DADF53877EC76DEC4] as [FLAG] on [MP].[ID] = [FLAG].[ID]
+				where [R].[EFFECTIVEDATE] > [FLAG].[STARTDATE]
+					and [FLAG].[VALUEID] in (N'fab7cc73-80f8-42b6-9adf-195b1578b2d1', N'33fba3bd-c3ad-4c97-8674-22af676f7303', N'491d72fc-3a51-4e6c-a1d0-95dd74e71a46', N'759ac62c-aade-4dd6-9a63-091e093d595a', N'efe9ca79-4abf-4ed6-8bfd-c9c7767fb420')
+				group by
+					[R].[CONSTITUENTID]
+				) [MAX_POST_REV_AMOUNT] on [C].[CONSTITUENTID] = [MAX_POST_REV_AMOUNT].[CONSTITUENTID]
+left outer join ( --Select an current prospect plan which is active and not historical
+				select
+				[PLAN].[PROSPECTID] [PROSPECTID],
+				[PLAN].[HISTORICAL]
+				from [V_QUERY_PROSPECTPLAN] [PLAN]
+					where [PLAN].[HISTORICAL] = 1
+				) [HISTORICAL] on [C].[CONSTITUENTID] = [HISTORICAL].[PROSPECTID]
+where [FLAG].[VALUEID] in (N'fab7cc73-80f8-42b6-9adf-195b1578b2d1', N'33fba3bd-c3ad-4c97-8674-22af676f7303', N'491d72fc-3a51-4e6c-a1d0-95dd74e71a46', N'759ac62c-aade-4dd6-9a63-091e093d595a', N'efe9ca79-4abf-4ed6-8bfd-c9c7767fb420')
+) [Y]
+
+where convert(varchar(40), case when month([Y].[HOTLIST_DATE]) > 6 then year([Y].[HOTLIST_DATE])+1 else year([Y].[HOTLIST_DATE]) end) is not null
+group by
+	case when month([Y].[HOTLIST_DATE]) > 6 then year([Y].[HOTLIST_DATE])+1 else year([Y].[HOTLIST_DATE]) end
+
+UNION -- For getting over all totals
+
+select
+	'Totals' [YEAR],
+	avg(case when coalesce([Y].[QUALIFYING_AMOUNT],0) > 0 then [Y].[QUALIFYING_AMOUNT] end) [AVG_QUALIFYING_AMOUNT],
+	count(distinct case when [FIRSTPLAN_STARTDATE] is not null then [Y].[CONSTITUENTID] else null end) [ADDED_TO_PLAN],
+	count(distinct case when [FIRSTPLAN_STARTDATE] is null then [Y].[CONSTITUENTID] else null end) [NOT_ADDED_TO_PLAN],
+	avg(dateDiff(month, [Y].[HOTLIST_DATE], [Y].[FIRSTPLAN_STARTDATE])) [TIME_TO_PLAN],
+	count(distinct case when [FIRSTMOVE_DATE] is not null then [Y].[CONSTITUENTID] else null end) [FIRSTMOVE_MADE],
+	count(distinct case when [FIRSTMOVE_DATE] is null then [Y].[CONSTITUENTID] else null end) [NO_FIRSTMOVE_MADE],
+	avg(dateDiff(month, [Y].[HOTLIST_DATE], [Y].[FIRSTMOVE_DATE])) [TIME_TO_MOVE],
+	count(distinct case when [FIRST_SOLDATE] is not null then [Y].[CONSTITUENTID] else null end) [FIRSTSOLMOVE_MADE],
+	count(distinct case when [FIRST_SOLDATE] is null then [Y].[CONSTITUENTID] else null end) [NO_FIRSTSOLMOVE_MADE],
+	avg(dateDiff(month, [Y].[HOTLIST_DATE], [Y].[FIRST_SOLDATE])) [TIME_TO_SOLICITATION],
+	avg(case when coalesce([Y].[POST_PLAN_AMOUNT],0) > 0 then [Y].[POST_PLAN_AMOUNT] end) [AVG_POST_PLAN_AMOUNT],
+	avg(case when coalesce([Y].[POST_SOL_AMOUNT],0) > 0 then [Y].[POST_SOL_AMOUNT] end) [AVG_POST_SOL_AMOUNT],
+	avg(case when coalesce([Y].[MAX_POST_AMOUNT],0) > 0 then [Y].[MAX_POST_AMOUNT] end) [AVG_MAX_POST_AMOUNT]
+
+from
+(select  distinct
+	[C].[CONSTITUENTID] as [CONSTITUENTID],
+ 	[C].[NAME] as [NAME],
+	[C].[SORT_NAME] [SORT],
+	[FLAG].[VALUE] as [HOTLIST_FLAG],
+	[FLAG].[STARTDATE] as [HOTLIST_DATE],
+	[PLAN].[STARTDATE] as [FIRSTPLAN_STARTDATE],
+	[MOVE].[DATE] as [FIRSTMOVE_DATE],
+	[SOL].[DATE] as [FIRST_SOLDATE],
+	[PRIOR_REV_DATE].[DATE] as [QUALIFYING_DATE],
+	[PRIOR_REV_AMOUNT].[AMOUNT] as [QUALIFYING_AMOUNT],
+	[POST_PLAN_REV].[DATE] as [POST_PLAN_DATE],
+	[POST_PLAN_REV].[AMOUNT] as [POST_PLAN_AMOUNT],
+	[MAX_POST_REV_AMOUNT].[AMOUNT] as [MAX_POST_AMOUNT],
+	[POST_SOL_REV].[DATE] [POST_SOL_DATE],
+	[POST_SOL_REV].[AMOUNT] [POST_SOL_AMOUNT],
+	case when [HISTORICAL].[HISTORICAL] = 1 then 1 else 0 end [ACTIVEPLAN]
+from [dbo].[EJ_CONSTITUENT_HISTORY] as [C]
+left outer join [dbo].[V_QUERY_MODELINGANDPROPENSITY_SIMPLE] as [MP] on [C].[CONSTITUENTID] = [MP].[ID]
+inner join [dbo].[V_QUERY_ATTRIBUTEDAC764DD502A407DADF53877EC76DEC4] as [FLAG] on [MP].[ID] = [FLAG].[ID]
+left outer join [dbo].[V_QUERY_PROSPECT] as [P] on [C].[CONSTITUENTID] = [P].[ID]
+left outer join ( -- Pull the first plan date after the hotlist flag
+				select
+					[PLAN].[PROSPECTID] [PROSPECTID],
+					min([PLAN].[STARTDATE]) [STARTDATE]
+				from [dbo].[V_QUERY_PROSPECTPLAN] [PLAN]
+				left outer join [dbo].[V_QUERY_MODELINGANDPROPENSITY_SIMPLE] as [MP] on [PLAN].[PROSPECTID] = [MP].[ID]
+				inner join [dbo].[V_QUERY_ATTRIBUTEDAC764DD502A407DADF53877EC76DEC4] as [FLAG] on [MP].[ID] = [FLAG].[ID]
+				where [PLAN].[STARTDATE] > [FLAG].[STARTDATE]
+					and [FLAG].[VALUEID] in (N'fab7cc73-80f8-42b6-9adf-195b1578b2d1', N'33fba3bd-c3ad-4c97-8674-22af676f7303', N'491d72fc-3a51-4e6c-a1d0-95dd74e71a46', N'759ac62c-aade-4dd6-9a63-091e093d595a', N'efe9ca79-4abf-4ed6-8bfd-c9c7767fb420')
+				group by [PLAN].[PROSPECTID]
+				) [PLAN] on [C].[CONSTITUENTID] = [PLAN].[PROSPECTID]
+left outer join ( --Pull the fist move made after the hotlist flag
+				select
+					[PLAN].[PROSPECTID] [PROSPECTID],
+					min([MOVE].[ACTUALDATE]) [DATE]
+				from [dbo].[V_QUERY_PROSPECTPLAN] [PLAN]
+				left outer join [dbo].[V_QUERY_STEP] as [MOVE] on [PLAN].[ID] = [MOVE].[PROSPECTPLANID]
+				left outer join [dbo].[V_QUERY_MODELINGANDPROPENSITY_SIMPLE] as [MP] on [PLAN].[PROSPECTID] = [MP].[ID]
+				inner join [dbo].[V_QUERY_ATTRIBUTEDAC764DD502A407DADF53877EC76DEC4] as [FLAG] on [MP].[ID] = [FLAG].[ID]
+				where [PLAN].[STARTDATE] > [FLAG].[STARTDATE]
+					and [MOVE].[STATUS] = N'Completed'
+					and [FLAG].[VALUEID] in (N'fab7cc73-80f8-42b6-9adf-195b1578b2d1', N'33fba3bd-c3ad-4c97-8674-22af676f7303', N'491d72fc-3a51-4e6c-a1d0-95dd74e71a46', N'759ac62c-aade-4dd6-9a63-091e093d595a', N'efe9ca79-4abf-4ed6-8bfd-c9c7767fb420')
+				group by [PLAN].[PROSPECTID]
+				) [MOVE] on [MOVE].[PROSPECTID] = [C].[CONSTITUENTID]
+left outer join ( --Pull the first solicitation move made after the hotlist flag
+				select
+					[PLAN].[PROSPECTID] [PROSPECTID],
+					min([MOVE].[ACTUALDATE]) [DATE]
+				from [dbo].[V_QUERY_PROSPECTPLAN] [PLAN]
+				left outer join [dbo].[V_QUERY_STEP] as [MOVE] on [PLAN].[ID] = [MOVE].[PROSPECTPLANID]
+				left outer join [dbo].[V_QUERY_MODELINGANDPROPENSITY_SIMPLE] as [MP] on [PLAN].[PROSPECTID] = [MP].[ID]
+				inner join [dbo].[V_QUERY_ATTRIBUTEDAC764DD502A407DADF53877EC76DEC4] as [FLAG] on [MP].[ID] = [FLAG].[ID]
+				where [PLAN].[STARTDATE] > [FLAG].[STARTDATE]
+					and [FLAG].[VALUEID] in (N'fab7cc73-80f8-42b6-9adf-195b1578b2d1', N'33fba3bd-c3ad-4c97-8674-22af676f7303', N'491d72fc-3a51-4e6c-a1d0-95dd74e71a46', N'759ac62c-aade-4dd6-9a63-091e093d595a', N'efe9ca79-4abf-4ed6-8bfd-c9c7767fb420')
+					and [MOVE].[STAGE] = 'Solicitation'
+					and [MOVE].[STATUS] = N'Completed'
+				group by [PLAN].[PROSPECTID]
+				) [SOL] on [SOL].[PROSPECTID] = [C].[CONSTITUENTID]
+left outer join ( --Pull the date for the qualifying revenue that indicated a hotlist prospect
+				select distinct
+					[R].[CONSTITUENTID] [CONSTITUENTID],
+					max([R].[EFFECTIVEDATE]) [DATE]
+				from [EJ_REVENUE_RECOGNITION] [R]
+				left outer join [dbo].[V_QUERY_MODELINGANDPROPENSITY_SIMPLE] as [MP] on [R].[CONSTITUENTID] = [MP].[ID]
+				inner join [dbo].[V_QUERY_ATTRIBUTEDAC764DD502A407DADF53877EC76DEC4] as [FLAG] on [MP].[ID] = [FLAG].[ID]
+				where [R].[EFFECTIVEDATE] < [FLAG].[STARTDATE]
+					and [FLAG].[VALUEID] in (N'fab7cc73-80f8-42b6-9adf-195b1578b2d1', N'33fba3bd-c3ad-4c97-8674-22af676f7303', N'491d72fc-3a51-4e6c-a1d0-95dd74e71a46', N'759ac62c-aade-4dd6-9a63-091e093d595a', N'efe9ca79-4abf-4ed6-8bfd-c9c7767fb420')
+				group by
+					[R].[CONSTITUENTID]
+				) [PRIOR_REV_DATE] on [C].[CONSTITUENTID] = [PRIOR_REV_DATE].[CONSTITUENTID]
+left outer join ( --Pull the associated revenue for the qualifying revenue that indicated a hotlist prospect
+				select distinct
+					[R].[CONSTITUENTID] [CONSTITUENTID],
+					[R].[EFFECTIVEDATE] [DATE],
+					sum([R].[AMOUNT]) [AMOUNT]
+				from [EJ_REVENUE_RECOGNITION] [R]
+				left outer join [dbo].[V_QUERY_MODELINGANDPROPENSITY_SIMPLE] as [MP] on [R].[CONSTITUENTID] = [MP].[ID]
+				inner join [dbo].[V_QUERY_ATTRIBUTEDAC764DD502A407DADF53877EC76DEC4] as [FLAG] on [MP].[ID] = [FLAG].[ID]
+				where [R].[EFFECTIVEDATE] < [FLAG].[STARTDATE]
+					and [FLAG].[VALUEID] in (N'fab7cc73-80f8-42b6-9adf-195b1578b2d1', N'33fba3bd-c3ad-4c97-8674-22af676f7303', N'491d72fc-3a51-4e6c-a1d0-95dd74e71a46', N'759ac62c-aade-4dd6-9a63-091e093d595a', N'efe9ca79-4abf-4ed6-8bfd-c9c7767fb420')
+				group by
+					[R].[CONSTITUENTID],
+					[R].[EFFECTIVEDATE]
+				) [PRIOR_REV_AMOUNT] on [C].[CONSTITUENTID] = [PRIOR_REV_AMOUNT].[CONSTITUENTID]
+										and [PRIOR_REV_DATE].[DATE] = [PRIOR_REV_AMOUNT].[DATE]
+left outer join ( --Pull the first revenue details for the first gift after being assigned to a prospect plan 	
+				select 
+					[Z].[CONSTITUENTID] [CONSTITUENTID],
+					[Z].[DATE] [DATE],
+					sum([R].[AMOUNT]) [AMOUNT]
+				from
+					(
+					select
+						[R].[CONSTITUENTID] [CONSTITUENTID],
+						min([R].[EFFECTIVEDATE]) [DATE]
+					from [EJ_REVENUE_RECOGNITION] [R]
+					left outer join [dbo].[V_QUERY_MODELINGANDPROPENSITY_SIMPLE] as [MP] on [R].[CONSTITUENTID] = [MP].[ID]
+					inner join [dbo].[V_QUERY_ATTRIBUTEDAC764DD502A407DADF53877EC76DEC4] as [FLAG] on [MP].[ID] = [FLAG].[ID]
+					where [R].[EFFECTIVEDATE] > [FLAG].[STARTDATE]
+					group by [R].[CONSTITUENTID]
+					) [Z]
+				left outer join [EJ_REVENUE_RECOGNITION] [R] on [Z].[CONSTITUENTID] = [R].[CONSTITUENTID]
+				where [R].[EFFECTIVEDATE] = [Z].[DATE]
+				group by 
+					[Z].[CONSTITUENTID],
+					[Z].[DATE]
+			) [POST_PLAN_REV] on [C].[CONSTITUENTID] = [POST_PLAN_REV].[CONSTITUENTID]				
+left outer join ( --Pull the first revenue details for the first gift after the first solicitation move after assignment to a prospect plan	
+				select distinct
+					[Z].[CONSTITUENTID] [CONSTITUENTID],
+					[Z].[DATE] [DATE],
+					sum([R].[AMOUNT]) [AMOUNT]
+				from
+					(
+					select
+						[R].[CONSTITUENTID] [CONSTITUENTID],
+						min([R].[EFFECTIVEDATE]) [DATE]
+					from [EJ_REVENUE_RECOGNITION] [R]
+					left outer join [dbo].[V_QUERY_MODELINGANDPROPENSITY_SIMPLE] as [MP] on [R].[CONSTITUENTID] = [MP].[ID]
+					inner join [dbo].[V_QUERY_ATTRIBUTEDAC764DD502A407DADF53877EC76DEC4] as [FLAG] on [MP].[ID] = [FLAG].[ID]
+					left outer join [V_QUERY_PROSPECTPLAN] [PLAN] on [R].[CONSTITUENTID] = [PLAN].[PROSPECTID]
+					left outer join [dbo].[V_QUERY_STEP] as [MOVE] on [PLAN].[ID] = [MOVE].[PROSPECTPLANID]
+					where [R].[EFFECTIVEDATE] > [FLAG].[STARTDATE]
+						and [R].[EFFECTIVEDATE] > [MOVE].[ACTUALDATE]
+						and [MOVE].[STAGE] = 'Solicitation'
+						and [MOVE].[STATUS] = N'Completed'
+					group by [R].[CONSTITUENTID]
+					) [Z]
+				left outer join [EJ_REVENUE_RECOGNITION] [R] on [Z].[CONSTITUENTID] = [R].[CONSTITUENTID]
+				where [R].[EFFECTIVEDATE] = [Z].[DATE]
+				group by 
+					[Z].[CONSTITUENTID],
+					[Z].[DATE]
+			) [POST_SOL_REV] on [PLAN].[PROSPECTID] = [POST_SOL_REV].[CONSTITUENTID]	
+left outer join ( --Pull the highest single gift amount after being identified as a hotlist prospect
+				select distinct
+					[R].[CONSTITUENTID] [CONSTITUENTID],
+					max([R].[AMOUNT]) [AMOUNT]
+				from [EJ_REVENUE_RECOGNITION] [R]
+				left outer join [dbo].[V_QUERY_MODELINGANDPROPENSITY_SIMPLE] as [MP] on [R].[CONSTITUENTID] = [MP].[ID]
+				inner join [dbo].[V_QUERY_ATTRIBUTEDAC764DD502A407DADF53877EC76DEC4] as [FLAG] on [MP].[ID] = [FLAG].[ID]
+				where [R].[EFFECTIVEDATE] > [FLAG].[STARTDATE]
+					and [FLAG].[VALUEID] in (N'fab7cc73-80f8-42b6-9adf-195b1578b2d1', N'33fba3bd-c3ad-4c97-8674-22af676f7303', N'491d72fc-3a51-4e6c-a1d0-95dd74e71a46', N'759ac62c-aade-4dd6-9a63-091e093d595a', N'efe9ca79-4abf-4ed6-8bfd-c9c7767fb420')
+				group by
+					[R].[CONSTITUENTID]
+				) [MAX_POST_REV_AMOUNT] on [C].[CONSTITUENTID] = [MAX_POST_REV_AMOUNT].[CONSTITUENTID]
+left outer join ( --Select an current prospect plan which is active and not historical
+				select
+				[PLAN].[PROSPECTID] [PROSPECTID],
+				[PLAN].[HISTORICAL]
+				from [V_QUERY_PROSPECTPLAN] [PLAN]
+					where [PLAN].[HISTORICAL] = 1
+				) [HISTORICAL] on [C].[CONSTITUENTID] = [HISTORICAL].[PROSPECTID]
+where [FLAG].[VALUEID] in (N'fab7cc73-80f8-42b6-9adf-195b1578b2d1', N'33fba3bd-c3ad-4c97-8674-22af676f7303', N'491d72fc-3a51-4e6c-a1d0-95dd74e71a46', N'759ac62c-aade-4dd6-9a63-091e093d595a', N'efe9ca79-4abf-4ed6-8bfd-c9c7767fb420')
+) [Y]
+
+) SUB
+	
+group by [YEAR], [AVG_QUALIFYING_AMOUNT], [ADDED_TO_PLAN], [NOT_ADDED_TO_PLAN], [TIME_TO_PLAN], [FIRSTMOVE_MADE], [NO_FIRSTMOVE_MADE],
+		   [TIME_TO_MOVE], [FIRSTSOLMOVE_MADE], [NO_FIRSTSOLMOVE_MADE], [TIME_TO_SOLICITATION], [AVG_POST_PLAN_AMOUNT], [AVG_POST_SOL_AMOUNT], [AVG_MAX_POST_AMOUNT]
+
+ORDER BY [YEAR]
+	
+OPTION (OPTIMIZE FOR UNKNOWN)
+
