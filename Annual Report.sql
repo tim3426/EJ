@@ -48,6 +48,9 @@ case when [Anonymous].ID is null then ''
 ,C.[ISORGANIZATION] as [Is organization]
 ,C.ID as [FY2019 Giving - Recognition Credits Countable Revenue No PG Smart Field\Currency ID]
 ,C.ID as [QUERYRECID]
+,case when [Prospect manager] is not null then 'Managed'
+	else null
+	end as [Managed]
 ,case when IG.ID is null then ''
     else 'IG'
     end as [IG]
