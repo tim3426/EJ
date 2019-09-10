@@ -1,6 +1,6 @@
 USE [ejdevo]
 GO
-/****** Object:  StoredProcedure [dbo].[USP_DATALIST_ADHOCQUERY_3A6C4BCB_E9AE_4BC2_BBF5_F2790C93283D]    Script Date: 20-Aug-19 1:40:53 PM ******/
+/****** Object:  StoredProcedure [dbo].[USP_DATALIST_ADHOCQUERY_3A6C4BCB_E9AE_4BC2_BBF5_F2790C93283D]    Script Date: 10-Sep-19 1:45:09 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -43,11 +43,11 @@ case when [Anonymous].ID is null then ''
 ,N.[ID] as [Name Format Record ID]
 ,C.ID as [FY2019 Giving - Recognition Credits Countable Revenue Smart Field\Currency ID]
 ,C.ID as [QUERYRECID]
-,case when IG.ID is null then ''
-    else 'IG'
-    end as [IG]
+,case when PG.ID is null then ''
+    else 'PG'
+    end as [PG]
 from V_QUERY_CONSTITUENT as C
-inner join V_QUERY_CONSTITUENCY as PG on C.ID = PG.CONSTITUENTID and PG.CONSTITUENCY = 'PG Estate' and PG.DATEFROM between '2018-07-01' and '2019-06-30'
+left join V_QUERY_CONSTITUENCY as PG on C.ID = PG.CONSTITUENTID and PG.CONSTITUENCY = 'PG' and PG.DATEFROM between '2018-07-01' and '2019-06-30'
 left join V_QUERY_CONSTITUENCY as PGEstate on C.ID = PGEstate.CONSTITUENTID and PGEstate.CONSTITUENCY = 'PG Estate' and PGEstate.DATEFROM between '2018-07-01' and '2019-06-30'
 left join [dbo].[V_QUERY_SMARTFIELD5DB8BA57106643289698C68A6037979C] as [FY2019] on C.[ID] = [FY2019].[ID]
 left join [dbo].[V_QUERY_RECOGNITION_816AA4D32F8F4F77BE995E6B27B5FD19] as [Recognition] on C.ID = [Recognition].[CONSTITUENTID]
@@ -79,7 +79,7 @@ select top(@MAXROWS) [Amicus],
 	[Recognition ID],
 	[Constituent Record ID],
 	[Name Format Record ID],
-	[IG],
+	[PG],
 	[FY2019 Giving - Recognition Credits Countable Revenue Smart Field\Currency ID]
 from [ROOT_CTE] as QUERYRESULTS
 where ((@PROSPECTMANAGER is null or @PROSPECTMANAGER = '') or QUERYRESULTS.[Prospect manager] LIKE  '%' + @PROSPECTMANAGER + '%')
