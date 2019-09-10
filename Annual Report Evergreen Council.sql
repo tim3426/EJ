@@ -47,8 +47,8 @@ case when [Anonymous].ID is null then ''
     else 'IG'
     end as [IG]
 from V_QUERY_CONSTITUENT as C
-inner join dbo.[UFN_ADHOCQUERYIDSET_F5DBD77C_9616_4A79_A245_647B511CADC5]() as PlannedGift on C.[ID] = PlannedGift.[ID]
-left join V_QUERY_CONSTITUENCY as CONSTITUENCY on C.ID = CONSTITUENCY.CONSTITUENTID and CONSTITUENCY = 'PG Estate' and DATEFROM between '2018-07-01' and '2019-06-30'
+inner join V_QUERY_CONSTITUENCY as PG on C.ID = PG.CONSTITUENTID and PG.CONSTITUENCY = 'PG Estate' and PG.DATEFROM between '2018-07-01' and '2019-06-30'
+left join V_QUERY_CONSTITUENCY as PGEstate on C.ID = PGEstate.CONSTITUENTID and PGEstate.CONSTITUENCY = 'PG Estate' and PGEstate.DATEFROM between '2018-07-01' and '2019-06-30'
 left join [dbo].[V_QUERY_SMARTFIELD5DB8BA57106643289698C68A6037979C] as [FY2019] on C.[ID] = [FY2019].[ID]
 left join [dbo].[V_QUERY_RECOGNITION_816AA4D32F8F4F77BE995E6B27B5FD19] as [Recognition] on C.ID = [Recognition].[CONSTITUENTID]
 left join [dbo].[V_QUERY_CONSTITUENTNAMEFORMAT] as [N] on C.ID = [N].[CONSTITUENTID]
@@ -60,7 +60,7 @@ left join [dbo].[V_QUERY_CONSTITUENT] as SpouseC on SpouseC.ID = C.SPOUSE_ID
 left join dbo.[UFN_ADHOCQUERYIDSET_C1B59FBE_5DE6_45CA_B2F0_1878701BC290]() as [Amicus] on C.ID = [Amicus].ID
 left join dbo.[UFN_ADHOCQUERYIDSET_5568D293_8A31_4905_9D3C_8DB227E20B9C]() as [Anonymous] on C.ID = [Anonymous].ID
 left join dbo.[UFN_ADHOCQUERYIDSET_40D3DB72_42CF_410D_8FC6_1FC89936810B]() as [IG] on C.ID = IG.ID
-where CONSTITUENCY.ID is null
+where PGEstate.ID is null
 )
 
 
