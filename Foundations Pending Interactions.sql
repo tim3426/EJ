@@ -1,3 +1,21 @@
+USE [ejdevo]
+GO
+/****** Object:  StoredProcedure [dbo].[USP_DATALIST_ADHOCQUERY_67A7A9F1_826B_46CA_A74F_24E6A1E46E87]    Script Date: 13-Sep-19 4:59:01 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER procedure [dbo].[USP_DATALIST_ADHOCQUERY_67A7A9F1_826B_46CA_A74F_24E6A1E46E87](
+@OWNER nvarchar(154) = null,
+	@CURRENTAPPUSERID uniqueidentifier,
+	@SECURITYFEATUREID uniqueidentifier,
+	@SECURITYFEATURETYPE tinyint,
+	@MAXROWS int = 100000) as
+set nocount on;
+set @OWNER = dbo.UFN_SEARCHCRITERIA_GETLIKEPARAMETERVALUE2(@OWNER, 0, null, 0);
+with
+[ROOT_CTE] as (
 SELECT
 C.NAME
 ,C.LookupID as [Lookup ID]
@@ -35,9 +53,30 @@ LEFT OUTER JOIN dbo.[UFN_ADHOCQUERYIDSET_F524CA2C_5E71_47ED_9049_71C79D1226F7]()
 LEFT OUTER JOIN dbo.[UFN_ADHOCQUERYIDSET_71B9837E_32F7_4D66_BBAC_53A36F3731F9]() as [Do Not Call] on [C].[CONSTITUENTID] = [Do Not Call].ID
 LEFT OUTER JOIN dbo.[UFN_ADHOCQUERYIDSET_8367E7CC_AEA4_4C6A_B9D0_3CC48D753C9D]() as [Do Not Email] on [C].[CONSTITUENTID] = [Do Not Email].ID
 
-WHERE I.STATUS = 'Pending'
+WHERE I.STATUS in ('Pending','Planned')
 AND CONTACTMETHOD in ('Report', 'Proposal')
 AND C.DECEASED = 0 and C.INACTIVE = 0 
 AND [Do Not Contact].ID is null
 AND OTEAM.BUSINESSUNIT = 'Foundations'
-AND I.EXPECTEDDATE < DATEADD(MONTH,6,GETDATE())
+)
+
+
+select top(@MAXROWS) [Name],
+	[Lookup ID],
+	[Plan],
+	[Contact method],
+	[Summary],
+	[Category],
+	[Expected date],
+	[Owner],
+	[Comment],
+	[Owner Record ID],
+	[Constituent Record ID],
+	[Team],
+	[Ismove],
+	[Interaction Record ID],
+	[Plan ID]
+from [ROOT_CTE] as QUERYRESULTS
+where ((@OWNER is null or @OWNER = '') or QUERYRESULTS.[Owner] LIKE  '%' + @OWNER + '%')
+
+order by [Name] asc, [Expected date] asc
