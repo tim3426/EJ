@@ -8,6 +8,8 @@ case when Address.AddressLine1 is not null
 	when Address.AddressLine1 is null
     and Email.EmailAddress is not null
         then 'Email'
+	when PersonalSends.ID is not NULL
+		then 'Personal Send'
 	else 'None'
     end as Delivery
 ,C.LOOKUPID as [Lookup ID]
@@ -97,6 +99,7 @@ left join V_QUERY_PROSPECT as P on C.CONSTITUENTID = P.ID and P.PROSPECTSTATUSCO
 	, N'd85b82bb-3638-4453-a82a-57ff4873b0ec')
 left join V_QUERY_FUNDRAISER as PM on P.PROSPECTMANAGERFUNDRAISERID = PM.ID
 left join UFN_ADHOCQUERYIDSET_40D3DB72_42CF_410D_8FC6_1FC89936810B() as IG on C.CONSTITUENTID = IG.ID
+left join dbo.[UFN_ADHOCQUERYIDSET_B3EEDF3A_EAF9_4B99_9B45_6B451538CC8F]() as PersonalSends on C.CONSTITUENTID = PersonalSends.ID
 
 
 where NonPGGiving.CONSTITUENTID is not null
