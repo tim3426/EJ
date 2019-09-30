@@ -249,8 +249,8 @@ LEFT OUTER JOIN (
 
 
 where P.PROSPECTSTATUSCODEID = 'b18c5050-0f21-464d-be41-a1c97c25f698' --Pending Engagement
-and ([ProspectAssessment].[AssessmentDate] < dateadd(year,-1,getdate())
-or [ProspectAssessment].[AssessmentDate] is null)
+--and ([ProspectAssessment].[AssessmentDate] < dateadd(year,-1,getdate())
+--or [ProspectAssessment].[AssessmentDate] is null)
 
 )
 

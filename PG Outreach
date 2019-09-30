@@ -3,6 +3,7 @@ C.NAME
 ,[ADDSAL].PRIMARYSALUTATION [Salutation]
 ,C.LookupID as [Lookup ID]
 ,C.Age
+,C.Address
 ,C.City
 ,C.State
 ,case when [Do Not Call].ID is null then C.PHONE else null end as [PHONE]
