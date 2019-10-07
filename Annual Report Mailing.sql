@@ -1,15 +1,15 @@
 select  distinct 
-case when Address.AddressLine1 is not null
-    and Email.EmailAddress is not null
+case when PersonalSends.ID is not NULL
+		then 'Personal Send'
+	when Address.AddressLine1 is not null
+    	and Email.EmailAddress is not null
         then 'Both'
-   when Address.AddressLine1 is not null
-    and Email.EmailAddress is null
+	when Address.AddressLine1 is not null
+		and Email.EmailAddress is null
         then 'Mail'
 	when Address.AddressLine1 is null
-    and Email.EmailAddress is not null
+    	and Email.EmailAddress is not null
         then 'Email'
-	when PersonalSends.ID is not NULL
-		then 'Personal Send'
 	else 'None'
     end as Delivery
 ,C.LOOKUPID as [Lookup ID]

@@ -1,6 +1,6 @@
-USE [EJDEVO]
+USE [ejdevo]
 GO
-/****** Object:  StoredProcedure [dbo].[USP_DATALIST_ADHOCQUERY_1E0AA3DE_98C4_4DF0_9328_1742BBBB026A]    Script Date: 12-Jul-19 4:00:26 PM ******/
+/****** Object:  StoredProcedure [dbo].[USP_DATALIST_ADHOCQUERY_1E0AA3DE_98C4_4DF0_9328_1742BBBB026A]    Script Date: 30-Sep-19 4:47:54 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -274,7 +274,7 @@ select top(@MAXROWS) [Lookup ID],
 	--[Most Recent Research],
 	[Five Year Gift Capacity],
 	[Estimated Wealth],
-	--[Major Giving Capacity],
+	[Major Giving Capacity],
 	[Last Move Date],
 	[Last Move Objective],
 	[Last Interaction Date],
